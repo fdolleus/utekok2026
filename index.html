@@ -30,7 +30,7 @@
   .color-toggle { display: flex; gap: 8px; margin-bottom: 18px; }
   .color-btn { flex: 1; padding: 10px; border: 2px solid #e0dbd4; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; text-align: center; transition: all 0.2s; background: #fff; }
   .color-btn.active { border-color: #1a1a1a; background: #1a1a1a; color: #fff; }
-  .color-btn.brown.active { border-color: #6b4226; background: #6b4226; color: #fff; }
+  .color-btn.brown.active { border-color: #9B7040; background: #9B7040; color: #fff; }
 
   .info-card { background: #fff; border-radius: 12px; padding: 18px; box-shadow: 0 1px 6px rgba(0,0,0,0.07); margin-bottom: 14px; }
   .info-card h3 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 10px; }
@@ -40,7 +40,7 @@
   .info-row .val { font-weight: 600; text-align: right; }
   .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
   .badge.black { background: #1a1a1a; color: #fff; }
-  .badge.brown { background: #6b4226; color: #fff; }
+  .badge.brown { background: #9B7040; color: #fff; }
   .badge.green { background: #2d6a4f; color: #fff; }
 
   /* ELEVATIONS */
@@ -77,17 +77,32 @@
   .mat-list td:last-child { text-align: right; font-weight: 600; }
 
   /* COST */
-  .cost-table { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 6px rgba(0,0,0,0.07); }
-  .cost-table table { width: 100%; border-collapse: collapse; }
-  .cost-table th { background: #1a1a1a; color: #fff; padding: 12px 20px; text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: 0.07em; }
-  .cost-table td { padding: 11px 20px; border-bottom: 1px solid #f0ece6; font-size: 14px; }
-  .cost-table tr:last-child td { border-bottom: none; }
-  .cost-table tr.total td { background: #f7f4f0; font-weight: 700; font-size: 15px; }
-  .cost-table td:last-child { text-align: right; font-weight: 500; }
   .note { margin-top: 12px; font-size: 12px; color: #888; padding: 0 4px; }
   .cost-toggle { display: flex; gap: 8px; margin-bottom: 20px; }
   .cost-btn { flex: 1; max-width: 180px; padding: 10px 16px; border: 2px solid #e0dbd4; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; text-align: center; transition: all 0.2s; background: #fff; }
   .cost-btn.active { border-color: #1a1a1a; background: #1a1a1a; color: #fff; }
+  /* Accordion material list */
+  .mat-acc { display:flex; flex-direction:column; gap:8px; }
+  .mat-sec { background:#fff; border-radius:10px; box-shadow:0 1px 6px rgba(0,0,0,0.07); overflow:hidden; }
+  .mat-hdr { display:flex; align-items:center; padding:14px 20px; cursor:pointer; user-select:none; gap:12px; }
+  .mat-hdr:hover { background:#faf7f3; }
+  .mat-hdr-title { flex:1; font-size:14px; font-weight:700; color:#1a1a1a; }
+  .mat-hdr-sub  { font-size:12px; color:#888; font-weight:400; margin-top:2px; }
+  .mat-hdr-cost { font-size:15px; font-weight:700; color:#1a1a1a; white-space:nowrap; }
+  .mat-hdr-arrow { font-size:11px; color:#999; transition:transform 0.2s; }
+  .mat-hdr.open .mat-hdr-arrow { transform:rotate(180deg); }
+  .mat-detail { display:none; border-top:1px solid #f0ece6; }
+  .mat-detail table { width:100%; border-collapse:collapse; font-size:12px; }
+  .mat-detail th { background:#f7f4f0; color:#888; padding:8px 14px; text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:0.06em; }
+  .mat-detail th:last-child { text-align:right; }
+  .mat-detail td { padding:8px 14px; border-bottom:1px solid #f7f4f0; color:#333; vertical-align:top; }
+  .mat-detail td:last-child { text-align:right; font-weight:600; white-space:nowrap; }
+  .mat-detail tr:last-child td { border-bottom:none; }
+  .mat-detail .mat-note { font-size:11px; color:#aaa; display:block; margin-top:2px; }
+  .mat-total-row { background:#f7f4f0; border-top:2px solid #e0dbd4; }
+  .mat-total-row td { font-weight:700; font-size:13px; padding:10px 14px; }
+  .mat-grand { background:#1a1a1a; color:#fff; border-radius:10px; padding:16px 20px; display:flex; justify-content:space-between; align-items:center; margin-top:4px; }
+  .mat-grand span { font-size:14px; font-weight:700; }
 
   /* NOTES */
   .notes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
@@ -113,7 +128,7 @@
 <header>
   <div>
     <h1>Utekök & Pergola</h1>
-    <span>3,5 × 3,5 m · Kök längs västra insynsskyddet · Havsutsikt söder</span>
+    <span>3,4 × 3,9 m · Kök + bardisk L-form · Havsutsikt söder</span>
   </div>
 </header>
 
@@ -124,6 +139,8 @@
   <div class="tab" onclick="showTab('components')">Komponenter</div>
   <div class="tab" onclick="showTab('cost')">Kostnad</div>
   <div class="tab" onclick="showTab('notes')">Att tänka på</div>
+  <div class="tab" onclick="showTab('detail')">Detaljvy – hörn</div>
+  <div class="tab" onclick="showTab('regler')">Bygglov &amp; tillstånd</div>
 </div>
 
 <div class="content">
@@ -135,7 +152,7 @@
   <div class="layout-grid">
     <div>
       <div class="plan-wrap">
-        <div class="plan-title">Uppifrån · 3,5 × 3,5 m · Skala 1:25 · N=upp · Havsutsikt söder ↓</div>
+        <div class="plan-title">Uppifrån · 3,4 × 3,9 m · Skala 1:25 · N=upp · Havsutsikt söder ↓</div>
         <!--
           UPPIFRÅN-VY – vi ser ytorna uppifrån:
           · Bänkskiva (ljusgrå yta) med diskho och grill synliga från ovan
@@ -149,7 +166,11 @@
             <pattern id="grid" width="25" height="25" patternUnits="userSpaceOnUse">
               <path d="M 25 0 L 0 0 0 25" fill="none" stroke="#d5cfc5" stroke-width="0.4"/>
             </pattern>
-            <pattern id="deck" width="14" height="200" patternUnits="userSpaceOnUse">
+            <!-- Spalje-mönster (top-down): horisontella slats sett uppifrån, 50% öppet -->
+          <pattern id="spalje-plan" x="0" y="0" width="1" height="8" patternUnits="userSpaceOnUse">
+            <rect id="spalje-fill-plan" x="0" y="0" width="1" height="4" fill="#1a1a1a"/>
+          </pattern>
+          <pattern id="deck" width="14" height="200" patternUnits="userSpaceOnUse">
               <rect width="14" height="200" fill="#c9bfa8"/>
               <line x1="13" y1="0" x2="13" y2="200" stroke="#b8ae97" stroke-width="0.8"/>
             </pattern>
@@ -161,9 +182,9 @@
             </marker>
           </defs>
 
-          <!-- Bakgrund – altanträ -->
+          <!-- Bakgrund – altanträ (3,4×3,9m @ 1.118 px/cm) -->
           <rect width="480" height="490" fill="#e8e3da" rx="4"/>
-          <rect x="38" y="36" width="390" height="390" fill="url(#deck)"/>
+          <rect x="38" y="36" width="380" height="436" fill="url(#deck)"/>
           <rect width="480" height="490" fill="url(#grid)" opacity="0.6"/>
 
           <!-- FÖRRÅD – norr (topp) -->
@@ -171,45 +192,45 @@
           <text x="240" y="22" text-anchor="middle" font-size="10" fill="#e8e3da" font-weight="700" letter-spacing="1.5">FÖRRÅD (NORR)</text>
 
           <!-- ── PERGOLA: TUNNA RIBBOR (uppifrån = smala horisontella streck öst–väst) ── -->
-          <!-- Stolpar: 4 hörn, 90×90 mm (= 9px i skalan) -->
+          <!-- Stolpar: 4 hörn, 90×90 mm (= 12px i skalan) – 3,4×3,9m -->
           <rect class="pcol" id="post-tl" x="38"  y="36"  width="12" height="12" fill="#1a1a1a" rx="1"/>
-          <rect class="pcol" id="post-tr" x="416" y="36"  width="12" height="12" fill="#1a1a1a" rx="1"/>
-          <rect class="pcol" id="post-bl" x="38"  y="414" width="12" height="12" fill="#1a1a1a" rx="1"/>
-          <rect class="pcol" id="post-br" x="416" y="414" width="12" height="12" fill="#1a1a1a" rx="1"/>
+          <rect class="pcol" id="post-tr" x="406" y="36"  width="12" height="12" fill="#1a1a1a" rx="1"/>
+          <rect class="pcol" id="post-bl" x="38"  y="460" width="12" height="12" fill="#1a1a1a" rx="1"/>
+          <rect class="pcol" id="post-br" x="406" y="460" width="12" height="12" fill="#1a1a1a" rx="1"/>
 
           <!-- Sidobalkar nord–syd (sedd uppifrån = smala rektanglar längs sidorna) -->
-          <rect class="pcol" id="rafter-w" x="38"  y="36" width="8" height="390" fill="#1a1a1a" rx="0" opacity="0.85"/>
-          <rect class="pcol" id="rafter-e" x="420" y="36" width="8" height="390" fill="#1a1a1a" rx="0" opacity="0.85"/>
+          <rect class="pcol" id="rafter-w" x="38"  y="36" width="8" height="436" fill="#1a1a1a" rx="0" opacity="0.85"/>
+          <rect class="pcol" id="rafter-e" x="418" y="36" width="8" height="436" fill="#1a1a1a" rx="0" opacity="0.85"/>
 
-          <!-- Tunna ribbor öst–väst (nätt pergola: 40×50mm c/c 28cm, ~13 ribbor) -->
-          <!-- Uppifrån ser vi ribborna som smala horisontella band -->
-          <rect class="pcol" x="46" y="62"  width="374" height="4" fill="#1a1a1a" rx="0" opacity="0.75"/>
-          <rect class="pcol" x="46" y="90"  width="374" height="4" fill="#1a1a1a" rx="0" opacity="0.75"/>
-          <rect class="pcol" x="46" y="118" width="374" height="4" fill="#1a1a1a" rx="0" opacity="0.75"/>
-          <rect class="pcol" x="46" y="146" width="374" height="4" fill="#1a1a1a" rx="0" opacity="0.75"/>
-          <rect class="pcol" x="46" y="174" width="374" height="4" fill="#1a1a1a" rx="0" opacity="0.75"/>
-          <rect class="pcol" x="46" y="202" width="374" height="4" fill="#1a1a1a" rx="0" opacity="0.75"/>
-          <rect class="pcol" x="46" y="230" width="374" height="4" fill="#1a1a1a" rx="0" opacity="0.75"/>
-          <rect class="pcol" x="46" y="258" width="374" height="4" fill="#1a1a1a" rx="0" opacity="0.75"/>
-          <rect class="pcol" x="46" y="286" width="374" height="4" fill="#1a1a1a" rx="0" opacity="0.75"/>
-          <rect class="pcol" x="46" y="314" width="374" height="4" fill="#1a1a1a" rx="0" opacity="0.75"/>
-          <rect class="pcol" x="46" y="342" width="374" height="4" fill="#1a1a1a" rx="0" opacity="0.75"/>
-          <rect class="pcol" x="46" y="370" width="374" height="4" fill="#1a1a1a" rx="0" opacity="0.75"/>
-          <rect class="pcol" x="46" y="398" width="374" height="4" fill="#1a1a1a" rx="0" opacity="0.75"/>
+          <!-- Tunna ribbor öst–väst (40×50mm c/c 28cm, ~15 ribbor för 3,9m span) -->
+          <rect class="pcol" x="46" y="62"  width="372" height="4" fill="#1a1a1a" rx="0" opacity="0.75"/>
+          <rect class="pcol" x="46" y="90"  width="372" height="4" fill="#1a1a1a" rx="0" opacity="0.75"/>
+          <rect class="pcol" x="46" y="118" width="372" height="4" fill="#1a1a1a" rx="0" opacity="0.75"/>
+          <rect class="pcol" x="46" y="146" width="372" height="4" fill="#1a1a1a" rx="0" opacity="0.75"/>
+          <rect class="pcol" x="46" y="174" width="372" height="4" fill="#1a1a1a" rx="0" opacity="0.75"/>
+          <rect class="pcol" x="46" y="202" width="372" height="4" fill="#1a1a1a" rx="0" opacity="0.75"/>
+          <rect class="pcol" x="46" y="230" width="372" height="4" fill="#1a1a1a" rx="0" opacity="0.75"/>
+          <rect class="pcol" x="46" y="258" width="372" height="4" fill="#1a1a1a" rx="0" opacity="0.75"/>
+          <rect class="pcol" x="46" y="286" width="372" height="4" fill="#1a1a1a" rx="0" opacity="0.75"/>
+          <rect class="pcol" x="46" y="314" width="372" height="4" fill="#1a1a1a" rx="0" opacity="0.75"/>
+          <rect class="pcol" x="46" y="342" width="372" height="4" fill="#1a1a1a" rx="0" opacity="0.75"/>
+          <rect class="pcol" x="46" y="370" width="372" height="4" fill="#1a1a1a" rx="0" opacity="0.75"/>
+          <rect class="pcol" x="46" y="398" width="372" height="4" fill="#1a1a1a" rx="0" opacity="0.75"/>
+          <rect class="pcol" x="46" y="426" width="372" height="4" fill="#1a1a1a" rx="0" opacity="0.75"/>
+          <rect class="pcol" x="46" y="454" width="372" height="4" fill="#1a1a1a" rx="0" opacity="0.75"/>
 
-          <!-- ── INSYNSSKYDD – västra sidan (sedd uppifrån = smal mörk remsa) ── -->
-          <!-- Tjocklek ~12 cm i verkligheten = 12px i skalan -->
-          <rect id="screen-body" x="10" y="36" width="28" height="390" fill="#1a1a1a" rx="1"/>
-          <text x="24" y="238" text-anchor="middle" font-size="8" fill="#777" transform="rotate(-90,24,238)" letter-spacing="0.5">INSYNSSKYDD</text>
+          <!-- ── SPALJE – västra sidan (sedd uppifrån = öppen ribbkonstruktion, golv till tak) ── -->
+          <rect id="screen-body" x="10" y="36" width="28" height="436" fill="url(#spalje-plan)" rx="1"/>
+          <text x="24" y="238" text-anchor="middle" font-size="8" fill="#777" transform="rotate(-90,24,238)" letter-spacing="0.5">SPALJE</text>
 
           <!-- ── UTEKÖK – längs väst (sedd uppifrån = BÄNKSKIVA som ljus yta) ── -->
           <!-- Kök är 70cm djupt × 3,0m långt. Uppifrån ser vi bänkskivans yta. -->
-          <!-- Bänkskivans yta (betong/ljusgrå) -->
-          <rect id="kitchen-body" x="38" y="44" width="78" height="336" fill="#c8c4be" rx="2"/>
+          <!-- Bänkskivans yta (betong/ljusgrå) – kök 3,1m längs västsida -->
+          <rect id="kitchen-body" x="38" y="44" width="78" height="346" fill="#c8c4be" rx="2"/>
           <!-- Bänkskivans framkant (öster) – tunn mörkare list -->
-          <rect x="113" y="44" width="3" height="336" fill="#a0988e" rx="0"/>
-          <!-- Kökets bakside (mot insynsskydd) – mörk remsa av stomme/panel -->
-          <rect x="38" y="44" width="8" height="336" fill="#2a2a2a" rx="0"/>
+          <rect x="113" y="44" width="3" height="346" fill="#a0988e" rx="0"/>
+          <!-- Kökets bakside (mot spalje) – mörk remsa av stomme/panel -->
+          <rect x="38" y="44" width="8" height="346" fill="#2a2a2a" rx="0"/>
 
           <!-- DISKHO uppifrån (rektangel med avlopp) – norr i kök -->
           <rect x="52" y="72" width="55" height="42" fill="#b0aa9f" rx="3" stroke="#888" stroke-width="1"/>
@@ -230,35 +251,50 @@
           <text x="80" y="332" text-anchor="middle" font-size="7" fill="#888" font-weight="600">MUSTANG J6</text>
 
           <!-- Kök-label (roterat) -->
-          <text x="76" y="165" text-anchor="middle" font-size="8.5" fill="#888" font-weight="700" transform="rotate(-90,76,165)" letter-spacing="0.5">BÄNKSKIVA (BETONG)</text>
+          <text x="76" y="220" text-anchor="middle" font-size="8.5" fill="#888" font-weight="700" transform="rotate(-90,76,220)" letter-spacing="0.5">BÄNKSKIVA (BETONG)</text>
 
           <!-- Blickriktning kocken -->
-          <line x1="120" y1="200" x2="200" y2="200" stroke="#3a6ea5" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arr-blue)"/>
-          <text x="206" y="197" font-size="8" fill="#3a6ea5" font-weight="600">blickriktning →</text>
+          <line x1="120" y1="220" x2="200" y2="220" stroke="#3a6ea5" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arr-blue)"/>
+          <text x="206" y="217" font-size="8" fill="#3a6ea5" font-weight="600">blickriktning →</text>
 
-          <!-- ── SITTBÄNK – södra kanten (uppifrån = mörk yta med sittytan) ── -->
-          <!-- Bänkens sittytan sedd uppifrån: ljus kant = lock/sittytan -->
-          <rect id="bench-body" x="120" y="376" width="298" height="50" fill="#1a1a1a" rx="2"/>
-          <!-- Lockytans ljusa kant (hyvlad panel/laminat) -->
-          <rect x="120" y="376" width="298" height="6" fill="#c8c4be" rx="1"/>
-          <text x="269" y="406" text-anchor="middle" font-size="9" fill="#777" font-weight="700" letter-spacing="0.3">SITTBÄNK / FÖRVARING</text>
+          <!-- ── BARDISK – L-form från köksslutets södra kant, 2,2m Ö-V ── -->
+          <!-- Sedd uppifrån: diskskiva (ljusgrå betong), 2,2m=246px × 50cm=56px -->
+          <!-- L-form: köket slutar vid y=390, bardisken svänger österut härifrån -->
+          <!-- Kopplingspunkt kök→bar (vertical segment, 12px bred) -->
+          <rect id="bench-body" x="38" y="390" width="78" height="12" fill="#2a2a2a" rx="1"/>
+          <!-- Horisontell bardisk (sedd uppifrån = ljus bänkskiva Ö-V) -->
+          <rect x="116" y="390" width="246" height="56" fill="#c8c4be" rx="2"/>
+          <!-- Framkant bardisk (söder) – mörkare list -->
+          <rect x="116" y="440" width="246" height="3" fill="#a0988e" rx="0"/>
+          <!-- Bardisk baksida (norr, mot kocken) – panelremsa -->
+          <rect x="116" y="390" width="246" height="6" fill="#2a2a2a" rx="0"/>
+          <!-- Hörnpunkt kök+bar (fylld kvadrat) -->
+          <rect class="pcol" x="116" y="390" width="12" height="12" fill="#1a1a1a" rx="1"/>
+          <text x="239" y="422" text-anchor="middle" font-size="9" fill="#555" font-weight="700" letter-spacing="0.3">BARDISK (2,2 m)</text>
+          <text x="239" y="434" text-anchor="middle" font-size="7.5" fill="#888">barstol norrsidan →</text>
 
-          <!-- Sittzon (öppen yta) -->
-          <text x="280" y="228" text-anchor="middle" font-size="12" fill="#a09585" font-weight="500">SITTZON</text>
-          <text x="280" y="246" text-anchor="middle" font-size="9" fill="#b8a890">↓ havet</text>
+          <!-- Öppen zon (Ö om bardisk, S om bar) -->
+          <text x="310" y="430" text-anchor="middle" font-size="9" fill="#a09585" font-weight="500">ÖPPEN ZON</text>
+          <text x="310" y="445" text-anchor="middle" font-size="8" fill="#b8a890">↓ havet</text>
+
+          <!-- Barstol-indikator (norr om bardisk) -->
+          <text x="239" y="382" text-anchor="middle" font-size="8" fill="#888">↑ barstolar (norrsidan)</text>
 
           <!-- Havspilar söder -->
-          <text x="240" y="474" text-anchor="middle" font-size="10" fill="#3a6ea5" font-weight="700">↓ HAVSUTSIKT SÖDER</text>
+          <text x="270" y="483" text-anchor="middle" font-size="10" fill="#3a6ea5" font-weight="700">↓ HAVSUTSIKT SÖDER</text>
 
           <!-- Dimensionspilar -->
-          <line x1="38" y1="456" x2="428" y2="456" stroke="#666" stroke-width="1" marker-end="url(#arr)" marker-start="url(#arr)"/>
-          <text x="233" y="468" text-anchor="middle" font-size="10" fill="#555">3,5 m</text>
-          <line x1="458" y1="36"  x2="458" y2="426" stroke="#666" stroke-width="1" marker-end="url(#arr)" marker-start="url(#arr)"/>
-          <text x="472" y="236" text-anchor="middle" font-size="10" fill="#555" transform="rotate(90,472,236)">3,5 m</text>
+          <line x1="38" y1="472" x2="418" y2="472" stroke="#666" stroke-width="1" marker-end="url(#arr)" marker-start="url(#arr)"/>
+          <text x="228" y="485" text-anchor="middle" font-size="10" fill="#555">3,4 m</text>
+          <line x1="446" y1="36"  x2="446" y2="472" stroke="#666" stroke-width="1" marker-end="url(#arr)" marker-start="url(#arr)"/>
+          <text x="460" y="258" text-anchor="middle" font-size="10" fill="#555" transform="rotate(90,460,258)">3,9 m</text>
 
-          <!-- Delmått -->
-          <line x1="10" y1="44" x2="10" y2="380" stroke="#aaa" stroke-width="0.8" stroke-dasharray="4,3" marker-end="url(#arr)" marker-start="url(#arr)"/>
-          <text x="5" y="216" text-anchor="middle" font-size="8.5" fill="#aaa" transform="rotate(-90,5,216)">~3,0 m kök</text>
+          <!-- Delmått kök -->
+          <line x1="10" y1="44" x2="10" y2="390" stroke="#aaa" stroke-width="0.8" stroke-dasharray="4,3" marker-end="url(#arr)" marker-start="url(#arr)"/>
+          <text x="5" y="220" text-anchor="middle" font-size="8.5" fill="#aaa" transform="rotate(-90,5,220)">~3,1 m kök</text>
+          <!-- Delmått bardisk -->
+          <line x1="116" y1="455" x2="362" y2="455" stroke="#aaa" stroke-width="0.8" stroke-dasharray="3,2" marker-end="url(#arr)" marker-start="url(#arr)"/>
+          <text x="239" y="466" text-anchor="middle" font-size="8" fill="#aaa">~2,2 m bardisk</text>
 
           <!-- Compass -->
           <text x="20" y="468" font-size="11" fill="#777" font-weight="700">↑ N</text>
@@ -274,12 +310,12 @@
 
       <div class="info-card">
         <h3>Yta &amp; mått</h3>
-        <div class="info-row"><span class="label">Total yta</span><span class="val">3,5 × 3,5 m</span></div>
+        <div class="info-row"><span class="label">Total yta</span><span class="val">3,4 × 3,9 m (13,3 m²)</span></div>
         <div class="info-row"><span class="label">Kök (djup, längs väst)</span><span class="val">~70 cm</span></div>
-        <div class="info-row"><span class="label">Kök (längd, N–S)</span><span class="val">~3,0 m</span></div>
-        <div class="info-row"><span class="label">Sittbänk (djup, söder)</span><span class="val">~50 cm</span></div>
-        <div class="info-row"><span class="label">Fri sittzon</span><span class="val">~2,7 × 2,5 m</span></div>
-        <div class="info-row"><span class="label">Insynsskydd (väst)</span><span class="val">~200 cm hög</span></div>
+        <div class="info-row"><span class="label">Kök (längd, N–S)</span><span class="val">~3,1 m</span></div>
+        <div class="info-row"><span class="label">Bardisk (Ö-V, L-form)</span><span class="val">2,2 m × 45 cm × 110 cm</span></div>
+        <div class="info-row"><span class="label">Öppen zon</span><span class="val">~2,5 × 0,8 m</span></div>
+        <div class="info-row"><span class="label">Spalje (väst, öppen)</span><span class="val">~230 cm, 67% öppet</span></div>
         <div class="info-row"><span class="label">Pergola höjd</span><span class="val">~230 cm</span></div>
       </div>
 
@@ -287,7 +323,7 @@
         <h3>Blickriktningar</h3>
         <div class="info-row"><span class="label">Kocken</span><span class="val">Österut / söderut (havet)</span></div>
         <div class="info-row"><span class="label">Sittbänk</span><span class="val">Norrut mot kök</span></div>
-        <div class="info-row"><span class="label">Insynsskydd</span><span class="val">Skärmar av grannen i väst</span></div>
+        <div class="info-row"><span class="label">Spalje (väst)</span><span class="val">Visuell avskärmning + klätterstöd</span></div>
         <div class="info-row"><span class="label">Förråd (norr)</span><span class="val">Bakom ryggen på kocken</span></div>
       </div>
 
@@ -309,70 +345,62 @@
 <!-- SIDOVYER                                                       -->
 <!-- ============================================================ -->
 <div class="panel" id="panel-elevations">
-  <div class="elev-grid">
+  <div class="elev-grid" style="grid-template-columns:1fr;">
 
     <!-- VY FRÅN ÖSTER: tittar västerut → ser kökets framsida + insynsskydd + pergola -->
     <div class="elev-wrap">
       <h3>Vy från öster – köksfasaden (kocken tittar mot dig)</h3>
-      <svg class="elev" id="svg-east" viewBox="0 0 560 340" xmlns="http://www.w3.org/2000/svg">
+      <svg class="elev" id="svg-east" viewBox="0 0 600 360" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <marker id="ae" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
             <path d="M0,0 L6,3 L0,6 Z" fill="#888"/>
           </marker>
+          <!-- Slat gap overlay: 8px ribbа + 4px mellanrum = 12px repeat (kök/bänk – täta ribbor) -->
+          <pattern id="vgap-e" x="0" y="0" width="12" height="1" patternUnits="userSpaceOnUse">
+            <rect x="8" y="0" width="4" height="1" fill="#d8e8f0" opacity="0.55"/>
+          </pattern>
+          <!-- Spalje-mönster (östvy): 5px ribbа + 10px öppet = 67% genomskinlig -->
+          <pattern id="spalje-e" x="0" y="0" width="15" height="1" patternUnits="userSpaceOnUse">
+            <rect id="spalje-fill-e" x="0" y="0" width="5" height="1" fill="#1a1a1a"/>
+          </pattern>
         </defs>
         <!-- Himmel -->
-        <rect width="560" height="340" fill="#d8e8f0" rx="4"/>
+        <rect width="600" height="360" fill="#d8e8f0" rx="4"/>
         <!-- Altan -->
-        <rect x="0" y="262" width="560" height="78" fill="#c9bfa8"/>
-        <line x1="0" y1="262" x2="560" y2="262" stroke="#a09585" stroke-width="2"/>
+        <rect x="0" y="262" width="600" height="98" fill="#c9bfa8"/>
+        <line x1="0" y1="262" x2="600" y2="262" stroke="#a09585" stroke-width="2"/>
         <!-- Förråd – bakvägg (höger = norr i denna vy) delvis synligt -->
         <rect x="440" y="100" width="120" height="162" fill="#8a7e72" rx="2"/>
         <text x="495" y="188" text-anchor="middle" font-size="10" fill="#c0b8af" font-weight="600">FÖRRÅD</text>
 
-        <!-- PERGOLA STOLPAR (vänster=söder, höger=norr) -->
+        <!-- PERGOLA STOLPAR (vänster=söder, höger=norr) – 3,4m N-S @ ~1.47px/cm ≈ 500px -->
         <rect id="epost-l" x="44"  y="62" width="14" height="200" fill="#1a1a1a" rx="2"/>
-        <rect id="epost-r" x="502" y="62" width="14" height="200" fill="#1a1a1a" rx="2"/>
+        <rect id="epost-r" x="503" y="62" width="14" height="200" fill="#1a1a1a" rx="2"/>
         <!-- Stombalk (horisontell, bred) -->
-        <rect id="ebeam" x="30" y="54" width="500" height="12" fill="#1a1a1a" rx="2"/>
-        <!-- Nätta ribbor (sedd från öster = ändträ = små smala kvadrater, tätt) -->
+        <rect id="ebeam" x="30" y="54" width="501" height="12" fill="#1a1a1a" rx="2"/>
+        <!-- Nätta ribbor (sedd från öster = ändträ, 3,9m/0.28=14 ribbor) -->
         <rect id="espar1"  x="62"  y="58" width="5" height="8" fill="#1a1a1a" rx="0" opacity="0.9"/>
-        <rect id="espar2"  x="100" y="58" width="5" height="8" fill="#1a1a1a" rx="0" opacity="0.9"/>
-        <rect id="espar3"  x="138" y="58" width="5" height="8" fill="#1a1a1a" rx="0" opacity="0.9"/>
-        <rect id="espar4"  x="176" y="58" width="5" height="8" fill="#1a1a1a" rx="0" opacity="0.9"/>
-        <rect id="espar5"  x="214" y="58" width="5" height="8" fill="#1a1a1a" rx="0" opacity="0.9"/>
-        <rect id="espar6"  x="252" y="58" width="5" height="8" fill="#1a1a1a" rx="0" opacity="0.9"/>
-        <rect id="espar7"  x="290" y="58" width="5" height="8" fill="#1a1a1a" rx="0" opacity="0.9"/>
-        <rect id="espar8"  x="328" y="58" width="5" height="8" fill="#1a1a1a" rx="0" opacity="0.9"/>
-        <rect id="espar9"  x="366" y="58" width="5" height="8" fill="#1a1a1a" rx="0" opacity="0.9"/>
-        <rect id="espar10" x="404" y="58" width="5" height="8" fill="#1a1a1a" rx="0" opacity="0.9"/>
-        <rect id="espar11" x="442" y="58" width="5" height="8" fill="#1a1a1a" rx="0" opacity="0.9"/>
-        <rect id="espar12" x="480" y="58" width="5" height="8" fill="#1a1a1a" rx="0" opacity="0.9"/>
+        <rect id="espar2"  x="98"  y="58" width="5" height="8" fill="#1a1a1a" rx="0" opacity="0.9"/>
+        <rect id="espar3"  x="134" y="58" width="5" height="8" fill="#1a1a1a" rx="0" opacity="0.9"/>
+        <rect id="espar4"  x="170" y="58" width="5" height="8" fill="#1a1a1a" rx="0" opacity="0.9"/>
+        <rect id="espar5"  x="206" y="58" width="5" height="8" fill="#1a1a1a" rx="0" opacity="0.9"/>
+        <rect id="espar6"  x="242" y="58" width="5" height="8" fill="#1a1a1a" rx="0" opacity="0.9"/>
+        <rect id="espar7"  x="278" y="58" width="5" height="8" fill="#1a1a1a" rx="0" opacity="0.9"/>
+        <rect id="espar8"  x="314" y="58" width="5" height="8" fill="#1a1a1a" rx="0" opacity="0.9"/>
+        <rect id="espar9"  x="350" y="58" width="5" height="8" fill="#1a1a1a" rx="0" opacity="0.9"/>
+        <rect id="espar10" x="386" y="58" width="5" height="8" fill="#1a1a1a" rx="0" opacity="0.9"/>
+        <rect id="espar11" x="422" y="58" width="5" height="8" fill="#1a1a1a" rx="0" opacity="0.9"/>
+        <rect id="espar12" x="458" y="58" width="5" height="8" fill="#1a1a1a" rx="0" opacity="0.9"/>
+        <rect id="espar13" x="494" y="58" width="5" height="8" fill="#1a1a1a" rx="0" opacity="0.9"/>
         <!-- Segelduk (optional, visas som linje med blå ton) -->
         <line x1="30" y1="64" x2="530" y2="64" stroke="#7ab3d4" stroke-width="3" stroke-dasharray="8,4" opacity="0.6"/>
         <text x="300" y="52" text-anchor="middle" font-size="8" fill="#5a9abf" font-style="italic">— — segelduk (vid regn) — —</text>
 
-        <!-- KÖK – framsida (stående panel, löper hela bredden = 3m kök + insynsskydd) -->
-        <rect id="ekitchen" x="44" y="182" width="416" height="80" fill="#1a1a1a" rx="2"/>
-        <!-- Stående panellinjer -->
-        <line class="ekpl" x1="68"  y1="182" x2="68"  y2="262" stroke="#2d2d2d" stroke-width="2"/>
-        <line class="ekpl" x1="92"  y1="182" x2="92"  y2="262" stroke="#2d2d2d" stroke-width="2"/>
-        <line class="ekpl" x1="116" y1="182" x2="116" y2="262" stroke="#2d2d2d" stroke-width="2"/>
-        <line class="ekpl" x1="140" y1="182" x2="140" y2="262" stroke="#2d2d2d" stroke-width="2"/>
-        <line class="ekpl" x1="164" y1="182" x2="164" y2="262" stroke="#2d2d2d" stroke-width="2"/>
-        <line class="ekpl" x1="188" y1="182" x2="188" y2="262" stroke="#2d2d2d" stroke-width="2"/>
-        <line class="ekpl" x1="212" y1="182" x2="212" y2="262" stroke="#2d2d2d" stroke-width="2"/>
-        <line class="ekpl" x1="236" y1="182" x2="236" y2="262" stroke="#2d2d2d" stroke-width="2"/>
-        <line class="ekpl" x1="260" y1="182" x2="260" y2="262" stroke="#2d2d2d" stroke-width="2"/>
-        <line class="ekpl" x1="284" y1="182" x2="284" y2="262" stroke="#2d2d2d" stroke-width="2"/>
-        <line class="ekpl" x1="308" y1="182" x2="308" y2="262" stroke="#2d2d2d" stroke-width="2"/>
-        <line class="ekpl" x1="332" y1="182" x2="332" y2="262" stroke="#2d2d2d" stroke-width="2"/>
-        <line class="ekpl" x1="356" y1="182" x2="356" y2="262" stroke="#2d2d2d" stroke-width="2"/>
-        <line class="ekpl" x1="380" y1="182" x2="380" y2="262" stroke="#2d2d2d" stroke-width="2"/>
-        <line class="ekpl" x1="404" y1="182" x2="404" y2="262" stroke="#2d2d2d" stroke-width="2"/>
-        <line class="ekpl" x1="428" y1="182" x2="428" y2="262" stroke="#2d2d2d" stroke-width="2"/>
-        <line class="ekpl" x1="452" y1="182" x2="452" y2="262" stroke="#2d2d2d" stroke-width="2"/>
+        <!-- KÖK – framsida (3,4m N-S → 473px width, med posttjocklek ≈ 3,1m kök): 28×45 ribbor stående -->
+        <rect id="ekitchen" x="44" y="182" width="473" height="80" fill="#1a1a1a" rx="2"/>
+        <rect x="44" y="182" width="473" height="80" fill="url(#vgap-e)"/>
         <!-- Betongbänkskiva (ljus kant, 50mm) -->
-        <rect x="44" y="177" width="416" height="8" fill="#bbb9b4" rx="1"/>
+        <rect x="44" y="177" width="473" height="8" fill="#bbb9b4" rx="1"/>
         <text x="230" y="173" text-anchor="middle" font-size="8" fill="#999">BETONGBÄNKSKIVA</text>
         <!-- Diskho (norr = höger i denna vy) -->
         <rect x="390" y="179" width="60" height="5" fill="#b0aa9f" rx="1"/>
@@ -381,70 +409,72 @@
         <rect x="80" y="178" width="90" height="6" fill="#333" rx="1"/>
         <text x="125" y="172" text-anchor="middle" font-size="8" fill="#888">MUSTANG JEWEL 6</text>
 
-        <!-- INSYNSSKYDD VÄST – skymtar bakom vänster pergolastolpe -->
-        <rect id="escreen" x="14" y="80" width="32" height="182" fill="#1a1a1a" rx="2" opacity="0.8"/>
-        <line x1="22" y1="80" x2="22" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
-        <line x1="30" y1="80" x2="30" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
-        <line x1="38" y1="80" x2="38" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
-        <text x="18" y="175" text-anchor="middle" font-size="8" fill="#888" transform="rotate(-90,18,175)">INSYNSSKYDD</text>
+        <!-- SPALJE VÄST – öppen ribbkonstruktion golv till tak, ≥67% genomskinlig (28×45 ribbor stående c/c ~80mm) -->
+        <rect x="14" y="66" width="32" height="196" fill="url(#spalje-e)" rx="2"/>
+        <text x="18" y="165" text-anchor="middle" font-size="8" fill="#777" transform="rotate(-90,18,165)" font-weight="600">SPALJE</text>
 
-        <!-- SITTBÄNK – förgrunden (söder = vänster i denna vy, men bänken löper hela bredden söder) -->
-        <rect id="ebench" x="44" y="240" width="416" height="22" fill="#1a1a1a" rx="2"/>
-        <line class="ebpl" x1="75"  y1="240" x2="75"  y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
-        <line class="ebpl" x1="106" y1="240" x2="106" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
-        <line class="ebpl" x1="137" y1="240" x2="137" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
-        <line class="ebpl" x1="168" y1="240" x2="168" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
-        <line class="ebpl" x1="199" y1="240" x2="199" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
-        <line class="ebpl" x1="230" y1="240" x2="230" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
-        <line class="ebpl" x1="261" y1="240" x2="261" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
-        <line class="ebpl" x1="292" y1="240" x2="292" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
-        <line class="ebpl" x1="323" y1="240" x2="323" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
-        <line class="ebpl" x1="354" y1="240" x2="354" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
-        <line class="ebpl" x1="385" y1="240" x2="385" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
-        <line class="ebpl" x1="416" y1="240" x2="416" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
-        <line class="ebpl" x1="447" y1="240" x2="447" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
-        <rect x="44" y="238" width="416" height="5" fill="#ddd8cf" rx="1" opacity="0.7"/>
-        <text x="280" y="231" text-anchor="middle" font-size="9" fill="#aaa" font-weight="600">SITTBÄNK (SYD)</text>
+        <!-- BARDISK (E-vy: syns som panel vid södra änden, 1,8m bredd) -->
+        <!-- I östvyn ser vi bardisken som en sektion närmast oss (söder=vänster) -->
+        <rect id="ebench" x="44" y="183" width="243" height="49" fill="#1a1a1a" rx="1" opacity="0.6"/>
+        <rect x="44" y="183" width="243" height="49" fill="url(#vgap-e)" opacity="0.7"/>
+        <!-- Bardiskens topp (ljus betong/skivkant) -->
+        <rect x="44" y="180" width="243" height="5" fill="#bbb9b4" rx="1"/>
+        <text x="165" y="175" text-anchor="middle" font-size="8" fill="#888" font-weight="600">BARDISK 1,8m · ~110cm hög · 45cm djup</text>
 
         <!-- Höjdmått -->
-        <line x1="536" y1="262" x2="536" y2="62" stroke="#888" stroke-width="1" marker-end="url(#ae)" marker-start="url(#ae)"/>
-        <text x="550" y="166" text-anchor="middle" font-size="10" fill="#666" transform="rotate(90,550,166)">230 cm</text>
-        <line x1="536" y1="262" x2="536" y2="185" stroke="#888" stroke-width="1" stroke-dasharray="3,3"/>
-        <text x="550" y="230" text-anchor="middle" font-size="9" fill="#999" transform="rotate(90,550,230)">90 cm</text>
-        <line x1="536" y1="262" x2="536" y2="240" stroke="#888" stroke-width="1" stroke-dasharray="3,3"/>
-        <text x="550" y="252" text-anchor="middle" font-size="9" fill="#999" transform="rotate(90,550,252)">45 cm</text>
+        <line x1="556" y1="262" x2="556" y2="62" stroke="#888" stroke-width="1" marker-end="url(#ae)" marker-start="url(#ae)"/>
+        <text x="572" y="166" text-anchor="middle" font-size="10" fill="#666" transform="rotate(90,572,166)">230 cm</text>
+        <line x1="556" y1="262" x2="556" y2="185" stroke="#888" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="572" y="230" text-anchor="middle" font-size="9" fill="#999" transform="rotate(90,572,230)">90 cm</text>
+        <line x1="556" y1="262" x2="556" y2="240" stroke="#888" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="572" y="252" text-anchor="middle" font-size="9" fill="#999" transform="rotate(90,572,252)">45 cm</text>
+        <!-- Breddmått N-S -->
+        <line x1="44" y1="278" x2="517" y2="278" stroke="#888" stroke-width="1" marker-end="url(#ae)" marker-start="url(#ae)"/>
+        <line x1="44" y1="262" x2="44" y2="280" stroke="#888" stroke-width="0.7" stroke-dasharray="3,2"/>
+        <line x1="517" y1="262" x2="517" y2="280" stroke="#888" stroke-width="0.7" stroke-dasharray="3,2"/>
+        <text x="280" y="295" text-anchor="middle" font-size="10" fill="#555">3,4 m (N-S)</text>
+        <!-- Bardisk breddmått -->
+        <line x1="44" y1="308" x2="287" y2="308" stroke="#888" stroke-width="0.8" stroke-dasharray="4,2" marker-end="url(#ae)" marker-start="url(#ae)"/>
+        <text x="165" y="324" text-anchor="middle" font-size="9" fill="#888">1,8 m (bardisk)</text>
       </svg>
     </div>
 
     <!-- VY FRÅN SÖDER: tittar norrut → ser djupet, köket längs vänster sida -->
     <div class="elev-wrap">
       <h3>Vy från söder – djupsektion (havssidan)</h3>
-      <svg class="elev" id="svg-south" viewBox="0 0 420 340" xmlns="http://www.w3.org/2000/svg">
+      <svg class="elev" id="svg-south" viewBox="0 0 540 360" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <marker id="as" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
             <path d="M0,0 L6,3 L0,6 Z" fill="#888"/>
           </marker>
+          <pattern id="vgap-s" x="0" y="0" width="12" height="1" patternUnits="userSpaceOnUse">
+            <rect x="8" y="0" width="4" height="1" fill="#d8e8f0" opacity="0.55"/>
+          </pattern>
+          <!-- Spalje-mönster (sydvy): 5px ribbа + 10px öppet = 67% genomskinlig -->
+          <pattern id="spalje-s" x="0" y="0" width="15" height="1" patternUnits="userSpaceOnUse">
+            <rect id="spalje-fill-s" x="0" y="0" width="5" height="1" fill="#1a1a1a"/>
+          </pattern>
         </defs>
         <!-- Himmel -->
-        <rect width="420" height="340" fill="#d8e8f0" rx="4"/>
+        <rect width="540" height="360" fill="#d8e8f0" rx="4"/>
         <!-- Altan -->
-        <rect x="0" y="262" width="420" height="78" fill="#c9bfa8"/>
-        <line x1="0" y1="262" x2="420" y2="262" stroke="#a09585" stroke-width="2"/>
+        <rect x="0" y="262" width="540" height="98" fill="#c9bfa8"/>
+        <line x1="0" y1="262" x2="540" y2="262" stroke="#a09585" stroke-width="2"/>
 
         <!-- Förråd – längst norr (höger i vy söder→norr) -->
         <rect x="380" y="80" width="40" height="182" fill="#8a7e72" rx="2"/>
         <text x="393" y="178" text-anchor="middle" font-size="8" fill="#c0b8af" font-weight="600" transform="rotate(90,393,178)">FÖRRÅD</text>
 
-        <!-- PERGOLA STOLPAR (vänster=väst, höger=öst) -->
+        <!-- PERGOLA STOLPAR (vänster=väst, höger=öst) – 3,9m E-V @ ~1.16px/cm = 452px -->
         <rect id="spost-w" x="44"  y="62" width="16" height="200" fill="#1a1a1a" rx="2"/>
-        <rect id="spost-e" x="360" y="62" width="16" height="200" fill="#1a1a1a" rx="2"/>
+        <rect id="spost-e" x="460" y="62" width="16" height="200" fill="#1a1a1a" rx="2"/>
         <!-- Balk -->
-        <rect id="sbeam2" x="28" y="54" width="364" height="13" fill="#1a1a1a" rx="2"/>
-        <!-- Takspärrar (öst–väst, sedd från söder = horisontella streck) -->
-        <rect id="ssp1" x="56"  y="62" width="310" height="5" fill="#1a1a1a" rx="1" opacity="0.35"/>
-        <rect id="ssp2" x="56"  y="108" width="310" height="5" fill="#1a1a1a" rx="1" opacity="0.3"/>
-        <rect id="ssp3" x="56"  y="154" width="310" height="5" fill="#1a1a1a" rx="1" opacity="0.25"/>
-        <rect id="ssp4" x="56"  y="200" width="310" height="5" fill="#1a1a1a" rx="1" opacity="0.2"/>
+        <rect id="sbeam2" x="28" y="54" width="452" height="13" fill="#1a1a1a" rx="2"/>
+        <!-- Takspärrar (sedd från söder = horisontella streck, 3,4m span) -->
+        <rect id="ssp1" x="56"  y="62" width="406" height="5" fill="#1a1a1a" rx="1" opacity="0.35"/>
+        <rect id="ssp2" x="56"  y="108" width="406" height="5" fill="#1a1a1a" rx="1" opacity="0.3"/>
+        <rect id="ssp3" x="56"  y="154" width="406" height="5" fill="#1a1a1a" rx="1" opacity="0.25"/>
+        <rect id="ssp4" x="56"  y="200" width="406" height="5" fill="#1a1a1a" rx="1" opacity="0.2"/>
 
         <!-- KÖK längs VÄSTRA sidan (sektion, djup ~70cm = 60px, vänster) -->
         <rect id="skitkitchen2" x="44" y="182" width="60" height="80" fill="#1a1a1a" rx="2"/>
@@ -456,37 +486,40 @@
         <text x="110" y="228" font-size="8" fill="#aaa" text-anchor="start">betong</text>
         <text x="72" y="172" text-anchor="middle" font-size="8" fill="#aaa">KÖK ~70cm</text>
 
-        <!-- INSYNSSKYDD VÄST (längst vänster, bakom köket) -->
-        <rect id="sscreen2" x="14" y="80" width="32" height="182" fill="#1a1a1a" rx="2" opacity="0.8"/>
-        <line x1="22" y1="80" x2="22" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
-        <line x1="30" y1="80" x2="30" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
-        <line x1="38" y1="80" x2="38" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
-        <text x="25" y="175" text-anchor="middle" font-size="7.5" fill="#888" transform="rotate(-90,25,175)">INSYNSSKYDD</text>
+        <!-- SPALJE VÄST – öppen ribbkonstruktion golv till tak, ≥67% genomskinlig -->
+        <rect x="14" y="66" width="32" height="196" fill="url(#spalje-s)" rx="2"/>
+        <text x="18" y="165" text-anchor="middle" font-size="8" fill="#777" transform="rotate(-90,18,165)" font-weight="600">SPALJE</text>
 
-        <!-- SITTBÄNK SYD – i förgrunden (sedd framifrån, liten) -->
-        <rect id="sbench2" x="108" y="218" width="250" height="44" fill="#1a1a1a" rx="2" opacity="0.9"/>
-        <line x1="133" y1="218" x2="133" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
-        <line x1="158" y1="218" x2="158" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
-        <line x1="183" y1="218" x2="183" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
-        <line x1="208" y1="218" x2="208" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
-        <line x1="233" y1="218" x2="233" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
-        <line x1="258" y1="218" x2="258" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
-        <line x1="283" y1="218" x2="283" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
-        <line x1="308" y1="218" x2="308" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
-        <line x1="333" y1="218" x2="333" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
-        <rect x="108" y="216" width="250" height="5" fill="#ddd8cf" rx="1" opacity="0.7"/>
-        <text x="233" y="242" text-anchor="middle" font-size="9" fill="#aaa" font-weight="600">SITTBÄNK (SYD)</text>
+        <!-- BARDISK SYD (S-vy: 1,8m bredd = 1,8×116 ≈ 209px) -->
+        <!-- Bardisken är ~50cm djup, 110cm hög, syns från söder som en hög panel -->
+        <rect id="sbench2" x="108" y="152" width="209" height="110" fill="#1a1a1a" rx="2" opacity="0.85"/>
+        <rect x="108" y="152" width="209" height="110" fill="url(#vgap-s)" opacity="0.9"/>
+        <!-- Bardiskens topp (ljus betong) -->
+        <rect x="108" y="150" width="209" height="5" fill="#bbb9b4" rx="1"/>
+        <text x="212" y="145" text-anchor="middle" font-size="8" fill="#aaa" font-weight="600">BARDISK 1,8m · ~110cm · 28×45 RIBBOR</text>
+        <!-- Barstolsindikation (silhuett av stol) -->
+        <line x1="130" y1="262" x2="130" y2="210" stroke="#c8b090" stroke-width="2" opacity="0.5"/>
+        <circle cx="130" cy="205" r="8" fill="#c8b090" opacity="0.4"/>
+        <line x1="180" y1="262" x2="180" y2="210" stroke="#c8b090" stroke-width="2" opacity="0.5"/>
+        <circle cx="180" cy="205" r="8" fill="#c8b090" opacity="0.4"/>
 
-        <!-- Fri sittzon (streckad) -->
-        <rect x="108" y="182" width="250" height="36" fill="none" stroke="#b8a890" stroke-width="1" stroke-dasharray="4,3" rx="2"/>
-        <text x="233" y="202" text-anchor="middle" font-size="9" fill="#a09585">SITTZON ~2,7m</text>
+        <!-- Sittzon öster om bardisk -->
+        <text x="390" y="202" text-anchor="middle" font-size="9" fill="#a09585">ÖPPEN ZON</text>
 
-        <!-- Djupmått -->
-        <line x1="44" y1="290" x2="376" y2="290" stroke="#888" stroke-width="1" marker-end="url(#as)" marker-start="url(#as)"/>
-        <text x="210" y="304" text-anchor="middle" font-size="10" fill="#666">3,5 m (bredden)</text>
+        <!-- Breddmått E-V -->
+        <line x1="44" y1="278" x2="476" y2="278" stroke="#888" stroke-width="1" marker-end="url(#as)" marker-start="url(#as)"/>
+        <line x1="44" y1="262" x2="44" y2="280" stroke="#888" stroke-width="0.7" stroke-dasharray="3,2"/>
+        <line x1="476" y1="262" x2="476" y2="280" stroke="#888" stroke-width="0.7" stroke-dasharray="3,2"/>
+        <text x="260" y="293" text-anchor="middle" font-size="10" fill="#555">3,9 m (E-V)</text>
+        <!-- Bardisk bredd -->
+        <line x1="108" y1="308" x2="317" y2="308" stroke="#888" stroke-width="0.8" stroke-dasharray="4,2" marker-end="url(#as)" marker-start="url(#as)"/>
+        <text x="212" y="323" text-anchor="middle" font-size="9" fill="#888">1,8 m (bardisk)</text>
         <!-- Höjd pergola -->
-        <line x1="398" y1="262" x2="398" y2="62" stroke="#888" stroke-width="1" marker-end="url(#as)" marker-start="url(#as)"/>
-        <text x="412" y="166" text-anchor="middle" font-size="10" fill="#666" transform="rotate(90,412,166)">230 cm</text>
+        <line x1="500" y1="262" x2="500" y2="62" stroke="#888" stroke-width="1" marker-end="url(#as)" marker-start="url(#as)"/>
+        <text x="518" y="166" text-anchor="middle" font-size="10" fill="#666" transform="rotate(90,518,166)">230 cm</text>
+        <!-- Bardisk höjd -->
+        <line x1="500" y1="262" x2="500" y2="152" stroke="#888" stroke-width="0.8" stroke-dasharray="4,2" marker-end="url(#as)" marker-start="url(#as)"/>
+        <text x="518" y="215" text-anchor="middle" font-size="9" fill="#999" transform="rotate(90,518,215)">110 cm</text>
       </svg>
     </div>
 
@@ -499,7 +532,7 @@
 <div class="panel" id="panel-concrete">
   <div class="concrete-guide">
     <h2>Gjuta betongbänkskiva utomhus</h2>
-    <div class="sub">Ca 3,0 m × 0,70 m × 50 mm · Gjuts in situ direkt på kökets stomme · ~300 kg totalt</div>
+    <div class="sub">Ca 2,8 m × 0,70 m × 50 mm · Gjuts in situ direkt på kökets stomme · ~275 kg totalt</div>
 
     <div class="mat-list">
       <h4>Material – ca 1 800–2 500 kr totalt</h4>
@@ -585,12 +618,13 @@
 
     <div class="comp-card">
       <h3><span class="icon">🍳</span> Platsbyggt utekök (längs väst)</h3>
-      <p>Byggt längs västra insynsskyddet. Kocken tittar österut/söderut med havsutsikten framför sig. Stående svart panel på tryckimpregnerad stomme.</p>
+      <p>Byggt längs västra spaljen. Kocken tittar österut/söderut med havsutsikten framför sig. Smal akustikpanel-inspirerad ribbpanel på tryckimpregnerad stomme — delar uttrycket med spaljen.</p>
       <div class="spec">
         <strong>Specifikation</strong>
-        Mått: ca 300 cm lång × 70 cm djup × 90 cm hög<br>
+        Mått: ca 310 cm lång × 70 cm djup × 90 cm hög<br>
         Orientering: öppning mot öster<br>
-        Panel: 28×120 mm stående, svart<br>
+        Panel: Aluwood Thermowood 45×28 mm ribbor, stående<br>
+        Alt: egenbyggd 28×45 reglar c/c ~35 mm<br>
         Stomme: 45×95 mm tryckimpr.
       </div>
     </div>
@@ -639,7 +673,8 @@
         <strong>Specifikation</strong>
         Stolpar: 4 st, 90×90 mm, höjd 230 cm<br>
         Stombalk (N–S): 45×145 mm på varje sida<br>
-        Ribbor (Ö–V): 28×70 mm c/c 25 cm (~14 st)<br>
+        Ribbor (Ö–V): 28×45 mm c/c ~35 mm (~14 st)<br>
+        Hörndetalj: 45° gerskapning i ribbändarna → 90° skarpt ytterhörn mot spalje-ribborna<br>
         Infästning: stolpsko i bjälklag<br>
         Färg: svart täcklasyr, 2 strykningar
       </div>
@@ -659,26 +694,29 @@
     </div>
 
     <div class="comp-card">
-      <h3><span class="icon">🛡️</span> Insynsskydd (väst)</h3>
-      <p>Stående svart panel längs hela västra sidan. Fungerar som bakvägg och stöd för köket. Skärmar av grannen i väster.</p>
+      <h3><span class="icon">🌿</span> Spalje (väst)</h3>
+      <p>Öppen ribbkonstruktion längs hela västra sidan, golv till tak (~230 cm). Minst 67% genomskinlig — klassas som öppen konstruktion, inte plank. Fungerar som bakvägg till köket och klätterstöd för växter. Skärmar visuellt av grannen utan att blockera luftflöde.</p>
       <div class="spec">
         <strong>Specifikation</strong>
-        Panel: 28×120 mm stående, svart<br>
-        Höjd: 180–200 cm<br>
+        Ribbor: 28×45 mm stående, c/c ~80 mm (67% öppet)<br>
+        Höjd: golv till pergolabalk, ~230 cm<br>
+        Hörndetalj: 45° gerskapning i toppen → möter takribbans 45° gers → 90° skarpt ytterhörn<br>
         Stomme: 45×95 mm tryckimpr.<br>
-        OBS: grannehörande om höjd &gt;1,8 m
+        Bygglov: öppen konstruktion (≥50% genomskinlig) = lovfritt
       </div>
     </div>
 
     <div class="comp-card">
-      <h3><span class="icon">🪑</span> Sittbänk / förvaring (söder)</h3>
-      <p>Platsbyggd längs södra kanten. Man sitter och tittar norrut mot köket och pergolan — havet i ryggen. Lyftlock ger förvaring under.</p>
+      <h3><span class="icon">🍸</span> Bardisk (L-form från köket)</h3>
+      <p>Platsbyggd bardisk i L-form som ansluter till kökets södra ände. Man sitter på norrsidan med barstolar och tittar mot havet. Samma svarta ribbpanel som köket — sömlös övergång. Servering direkt från köket till baren utan att röra sig.</p>
       <div class="spec">
         <strong>Specifikation</strong>
-        Mått: ca 270 cm × 50 cm × 45 cm<br>
-        Lock: hyvlad panel eller kompaktlaminat<br>
-        Stomme: 45×95 mm tryckimpr.<br>
-        Gångjärn: gasdämpare
+        Längd: ca 220 cm (Ö-V), ansluter till köket (N-S)<br>
+        Djup: ca 45 cm (sittbar norrifrån)<br>
+        Höjd: ca 105–110 cm (barstolshöjd)<br>
+        Panel: 28×45 mm ribbor stående, svart<br>
+        Skiva: betong (samma som köket) alt. skiffer<br>
+        Stomme: 45×95 mm tryckimpr., konsolbärare
       </div>
     </div>
 
@@ -689,15 +727,11 @@
 <!-- KOSTNAD                                                        -->
 <!-- ============================================================ -->
 <div class="panel" id="panel-cost">
-  <div class="cost-toggle">
-    <div class="cost-btn active" onclick="setCostView('material')">Material</div>
-    <div class="cost-btn" onclick="setCostView('total')">Inkl. arbete</div>
+  <div id="mat-acc-root" class="mat-acc"></div>
+  <div class="mat-grand" id="mat-grand-total">
+    <span>TOTALT MATERIAL</span><span id="mat-grand-val">–</span>
   </div>
-  <div class="cost-table">
-    <table><thead><tr><th>Post</th><th>Detalj</th><th>Kostnad (kr)</th></tr></thead>
-    <tbody id="cost-body"></tbody></table>
-  </div>
-  <p class="note">* Uppskattning 2025. Snickare 650 kr/h inkl. moms. Betongbänkskiva räknad som DIY.</p>
+  <p class="note">* Uppskattning 2025. Priser inklusive moms. Snickare/el-inst. separat – ej medräknat i materialsumman. Betongbänkskivor: DIY.</p>
 </div>
 
 <!-- ============================================================ -->
@@ -710,7 +744,7 @@
       <h3>⚠️ Tillstånd</h3>
       <ul>
         <li>Öppen pergola normalt bygglovsbefriad – bekräfta med Österåkers kommun</li>
-        <li>Insynsskydd i väster: grannehörande om höjd &gt;1,8 m mot tomtgräns</li>
+        <li>Spalje i väster (öppen, 67%): klassas ej som plank – ingen höjdbegränsning, men grannemedgivande om &lt;4,5 m från tomtgräns</li>
         <li>Samfälligheten kan ha regler – kontrollera</li>
         <li>Deck-utbyggnad: ≥4,5 m från gräns kräver grannemedgivande</li>
       </ul>
@@ -764,6 +798,17 @@
     </div>
 
     <div class="note-card info">
+      <h3>📐 Konstruktionsdetalj – 45° gerskapning, 90° ytterhörn</h3>
+      <ul>
+        <li><strong>Principen:</strong> Pergolataksribborna (horisontella, 28×45 mm) kaps i 45° i båda ändarna. Spalje-ribborna (stående, 28×45 mm) kaps i 45° i toppen. De två 45°-ytorna möts och bildar ett exakt 90° ytterhörn utan synligt ändträ — precis som på soffadirekt-bilden</li>
+        <li>Kräver noggrant förarbete: skär alla ribbor med en fixtur i kap/geringssåg för exakt repeterbarhet</li>
+        <li>Kontrollpassning torr innan limning — korrekt fogvinkel syns direkt när man håller ihop ribborna</li>
+        <li>Utomhus: vattenfast trälim D3/D4 + skruv i kombination, lim ensamt är inte tillräckligt</li>
+        <li>Räkna med 10–15% spill på ribbor pga kapning och utkast</li>
+      </ul>
+    </div>
+
+    <div class="note-card info">
       <h3>🎨 Ytbehandling – svart</h3>
       <ul>
         <li>Svarttjära (Auson): penetrerande, 30+ år livslängd, traditionellt</li>
@@ -773,6 +818,630 @@
       </ul>
     </div>
 
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- BYGGLOV & TILLSTÅND                                            -->
+<!-- ============================================================ -->
+<div class="panel" id="panel-regler">
+  <div style="max-width:860px;">
+
+    <!-- TL;DR -->
+    <div class="note-card ok" style="margin-bottom:20px;">
+      <h3>✅ Slutsats – projektet bör kunna genomföras utan bygglov</h3>
+      <ul>
+        <li><strong>Pergola 3,4×3,9 m, öppet ribbtak, höjd 230 cm (13,3 m²)</strong> → Lovfri som fristående pergola om taket förblir öppet/glest och du håller ≥4,5 m från tomtgräns — eller om du har grannemedgivande.</li>
+        <li><strong>Spalje (öppen ribbkonstruktion) golv till tak, västra sidan</strong> → Klassas inte som plank eftersom ≥67% är öppet. Ingen höjdbegränsning — samma regler som öppet staket. Håll ≥4,5 m från gräns eller ta grannemedgivande.</li>
+        <li><strong>Altan/träddäck</strong> → Lovfri om höjd ≤1,2 m och yta ≤50 m² (eller att detaljplanens regler om byggrätt följs).</li>
+        <li><strong>OBS:</strong> Kontrollera om fastigheten ligger inom strandskyddszonen (normalt 100 m från vatten) — kräver då dispensansökan separat.</li>
+      </ul>
+    </div>
+
+    <div class="notes-grid">
+
+      <!-- PERGOLA -->
+      <div class="note-card info">
+        <h3>🏗️ Pergola – regler (uppdaterat dec 2025)</h3>
+        <ul>
+          <li>Klassas som bygglovsbefriad om konstruktionen är öppen: minst 50–75% av tak och väggar ska vara öppna eller genomsiktliga</li>
+          <li>Maxhöjd ~3,0 m från mark till högsta punkt för att undvika lov</li>
+          <li>Yta upp till ~15–20 m² brukar vara säkert — ert projekt 3,4×3,9 = 13,26 m² ✓ (fortfarande inom gränsen, men kontrollera med Österåker)</li>
+          <li>≥4,5 m från tomtgräns (mot granne, samfällighet eller gatumark) — annars krävs skriftligt grannemedgivande</li>
+          <li>Fristående pergola (ej fastsatt i husvägg) har störst chans till lovfrihet</li>
+          <li><strong>Risk:</strong> Permanent segelduk/polykarbonat som sitter uppe året runt kan klasas som skärmtak → bygglovspliktigt. Avtagbar segelduk är ok.</li>
+        </ul>
+      </div>
+
+      <!-- SPALJE -->
+      <div class="note-card ok">
+        <h3>🌿 Spalje/öppen ribbkonstruktion – regler (Österåker)</h3>
+        <ul>
+          <li><strong>Spalje ≠ plank.</strong> En konstruktion med ≥50% öppen area klassas inte som plank/mur — plank-/insynsskyddsreglerna (1,2 m / 1,8 m-gränsen) gäller <em>inte</em></li>
+          <li>Öppen spalje (ribbor, trelliswork, spaljé) är i praktiken att jämföra med staket. Staket är lovfritt utan höjdbegränsning inom detaljplan, förutsatt att det inte är tätt</li>
+          <li>Er spalje: 28×45 mm ribbor c/c ~80 mm = 67% öppet → väl över ≥50%-gränsen. Golv till tak ~230 cm är ok</li>
+          <li>Håll ≥4,5 m från tomtgräns, eller inhämta grannemedgivande. Täthetsgraden avgör klassningen — om ribborna kapas tätare (≥50% täckt) glider det in i plank-definitionen</li>
+          <li>Spara ritning och foto som visar öppenhetsgraden, ifall kommunen skulle fråga</li>
+        </ul>
+      </div>
+
+      <!-- ALTAN -->
+      <div class="note-card ok">
+        <h3>🪵 Altan/träddäck – regler (Österåker, dec 2025)</h3>
+        <ul>
+          <li>Lovfri om höjd ≤1,2 m och placeras inom 3,6 m från bostadshuset (d.v.s. marknära altan)</li>
+          <li>Lovfri om höjd ≤1,8 m om altanen byggs direkt mot byggnad inom 3,6 m och ≥4,5 m från gräns</li>
+          <li>Om altanen + befintliga altaner sammanlagt >50 m² måste detaljplanens bestämmelser följas (kontrollera e-BYA)</li>
+          <li>Marknära träddäck (≤30 cm) betraktas normalt inte som altan alls och är helt olovad</li>
+          <li>Räcke/balustrad med tät konstruktion på altanen = plank → samma regler som insynsskydd</li>
+        </ul>
+      </div>
+
+      <!-- RISKER -->
+      <div class="note-card warn">
+        <h3>⚠️ Risker &amp; kontrollpunkter</h3>
+        <ul>
+          <li><strong>Strandskydd:</strong> Österåker har stora strandskyddszoner (normalt 100 m från strandlinje). Ligger fastigheten inom zonen → dispensansökan hos kommunen krävs OAVSETT om bygget annars är lovfritt. Kontrollera i Österåkers GIS-karta</li>
+          <li><strong>Kulturmiljö:</strong> Om fastigheten finns i kulturhistoriskt värdefullt område gäller utökad lovplikt. Kontrollera i kulturmiljökartan</li>
+          <li><strong>Spalje täthetsgrad:</strong> Konstruktionen måste hålla ≥50% öppet för att inte klassas som plank. Dokumentera ribbavstånd och ta foton före bygge</li>
+          <li><strong>Segelduk/tak permanent:</strong> Avtagbar duk = ok. Fast duk år runt = troligtvis skärmtak = bygglov</li>
+          <li><strong>Roslagsbanan 30 m-zon:</strong> Plank/mur >1,2 m inom 30 m från Roslagsbanans spårmitt kräver bygglov — sannolikt ej relevant här men kolla GIS-kartan</li>
+          <li><strong>Spara alla handlingar:</strong> Grannemedgivande, situationsplan, foton. Kommunen kan kräva upp dem i efterhand</li>
+        </ul>
+      </div>
+
+      <!-- CHECKLISTA -->
+      <div class="note-card info">
+        <h3>☑️ Checklista före bygge</h3>
+        <ul>
+          <li>Kontrollera strandskyddszonen: <em>gisportal.osteraker.se → Bygga, bo &amp; miljö → Strandskydd</em></li>
+          <li>Kontrollera om fastigheten är kulturmiljöskyddad i kommunens karta</li>
+          <li>Mät exakt avstånd från planerat spalje/pergola till västra och södra tomtgränsen</li>
+          <li>Om avstånd &lt;4,5 m → inhämta skriftligt grannemedgivande (se mall nedan)</li>
+          <li>Dokumentera ribbavståndet på spaljen (foto + ritning): ribbor 28mm, c/c 80mm = 67% öppet</li>
+          <li>Säkerställ att pergolatak förblir öppet (ribbor med tydliga glapp) — inte tätt tak</li>
+          <li>Vid tvekan: skicka en enkel skiss till <em>bygglov@osteraker.se</em> och be om förhandsbedömning — kostnadsfritt</li>
+          <li>Kontakta Österåker: 08-540 810 00 eller bygglov@osteraker.se</li>
+        </ul>
+      </div>
+
+      <!-- GRANNEMEDGIVANDE INFO -->
+      <div class="note-card warn">
+        <h3>📋 Grannemedgivande – när och hur</h3>
+        <ul>
+          <li>Krävs om spalje eller pergola placeras &lt;4,5 m från berörda grannars tomtgräns</li>
+          <li>Måste vara skriftligt och undertecknat av fastighetsägaren (inte bara den som bor där)</li>
+          <li>Gäller specifikt mot: grannar, samfällighet, allmän plats. Om kommunen är huvudman för angränsande mark → separat e-tjänst på Österåkers hemsida</li>
+          <li>Du ansvarar själv för att spara medgivandet — kommunen registrerar det inte automatiskt</li>
+          <li>Grannemedgivande gör bygget lovfritt men befriar dig inte från varsamhetskrav och tekniska krav (hållfasthet, säkerhet per BBR)</li>
+          <li>Tips: visa grannen ritning/planvy på projektet vid underskrift — minskar risk för framtida tvist</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- GRANNEMEDGIVANDE MALL -->
+    <div style="margin-top:28px; background:#fff; border-radius:12px; padding:28px; box-shadow:0 1px 6px rgba(0,0,0,0.07);">
+      <h3 style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#888;margin-bottom:16px;">📄 Mall – Grannemedgivande (för utskrift)</h3>
+
+      <div id="consent-doc" style="border:1px solid #d0cbc4; border-radius:8px; padding:28px 32px; font-family:'Georgia',serif; font-size:14px; line-height:1.8; color:#1a1a1a; background:#fdfaf7;">
+
+        <div style="text-align:right; font-size:12px; color:#888; margin-bottom:24px;">Österåker, _____________ 20___</div>
+
+        <h2 style="font-size:17px; font-weight:700; text-align:center; margin-bottom:6px; letter-spacing:0.02em;">GRANNEMEDGIVANDE</h2>
+        <p style="text-align:center; font-size:12px; color:#888; margin-bottom:28px;">Avseende bygglovsbefriad åtgärd enligt PBL 9 kap. 4 a §</p>
+
+        <p><strong>Fastighet (sökande):</strong> ___________________________________ (fastighetsbeteckning)</p>
+        <p><strong>Åtgärd:</strong> Uppförande av spalje (öppen ribbkonstruktion) samt pergola i anslutning till befintlig uteplats.</p>
+        <p style="margin-top:12px;"><strong>Placering:</strong> Åtgärden placeras inom 4,5 meter från tomtgränsen mot nedanstående grannfastighet, varför skriftligt medgivande inhämtas i enlighet med Österåkers kommuns riktlinjer och plan- och bygglagen (PBL).</p>
+
+        <p style="margin-top:16px;"><strong>Beskrivning av åtgärden:</strong></p>
+        <ul style="margin-left:20px; margin-bottom:16px;">
+          <li>Spalje (öppen ribbkonstruktion, ej plank): höjd ca 230 cm, längs västra sidan. Ribbor 28×45 mm c/c ~80 mm — minst 67% genomskinlig. Klassas som öppen konstruktion, inte plank.</li>
+          <li>Pergola med öppet ribbtak: ca 3,4 × 3,9 m, höjd ca 230 cm, placerad i sydvästra hörnet av tomten</li>
+          <li>Material: svartbehandlat trä (28×45 mm ribbor), öppen konstruktion genomgående</li>
+        </ul>
+
+        <p>Undertecknad fastighetsägare till grannfastigheten godkänner härmed att ovanstående åtgärd uppförs i enlighet med beskrivningen ovan och att åtgärden placeras inom 4,5 meter från vår gemensamma tomtgräns.</p>
+
+        <div style="margin-top:32px; display:grid; grid-template-columns:1fr 1fr; gap:32px;">
+          <div>
+            <p style="font-size:12px; color:#888; margin-bottom:4px;">Grannfastighet (beteckning)</p>
+            <div style="border-bottom:1px solid #999; min-height:28px; margin-bottom:16px;"></div>
+            <p style="font-size:12px; color:#888; margin-bottom:4px;">Fastighetsägarens namn (textat)</p>
+            <div style="border-bottom:1px solid #999; min-height:28px; margin-bottom:16px;"></div>
+            <p style="font-size:12px; color:#888; margin-bottom:4px;">Underskrift</p>
+            <div style="border-bottom:1px solid #999; min-height:40px; margin-bottom:16px;"></div>
+            <p style="font-size:12px; color:#888; margin-bottom:4px;">Datum</p>
+            <div style="border-bottom:1px solid #999; min-height:28px;"></div>
+          </div>
+          <div>
+            <p style="font-size:12px; color:#888; margin-bottom:4px;">Telefon / e-post (kontakt)</p>
+            <div style="border-bottom:1px solid #999; min-height:28px; margin-bottom:16px;"></div>
+            <p style="font-size:12px; color:#888; margin-bottom:4px;">Adress</p>
+            <div style="border-bottom:1px solid #999; min-height:28px; margin-bottom:16px;"></div>
+            <p style="font-size:12px; color:#888; margin-bottom:60px;"></p>
+            <p style="font-size:12px; color:#888; margin-bottom:4px;">Ort</p>
+            <div style="border-bottom:1px solid #999; min-height:28px;"></div>
+          </div>
+        </div>
+
+        <div style="margin-top:32px; padding:12px; background:#f4f1ec; border-radius:6px; font-size:11px; color:#888;">
+          <strong>OBS:</strong> Medgivandet gäller enbart för åtgärden som beskrivs ovan och utgör inte ett allmänt godkännande av framtida byggnationer. Sökanden ansvarar för att spara detta dokument och uppvisa det om kommunen begär det.
+        </div>
+
+        <div style="margin-top:20px; padding:12px; background:#f4f1ec; border-radius:6px; font-size:11px; color:#888;">
+          <strong>Källor:</strong> Österåkers kommuns bygglovsguide (uppdaterad maj 2026), Plan- och bygglagen (PBL 2010:900) med ändringar gällande fr.o.m. 1 december 2025.
+        </div>
+      </div>
+
+      <button onclick="window.print()" style="margin-top:16px; padding:10px 20px; background:#1a1a1a; color:#fff; border:none; border-radius:8px; cursor:pointer; font-size:13px; font-weight:600;">🖨️ Skriv ut medgivande</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- DETALJVY – HÖRNKonstruktion                                    -->
+<!-- ============================================================ -->
+<div class="panel" id="panel-detail">
+  <div class="elev-grid" style="grid-template-columns:1fr;">
+
+    <div class="elev-wrap">
+      <h3>Hörnskarvning – 28×45 mm ribbor · 45° gerskapning · 90° skarpt ytterhörn</h3>
+      <svg style="width:100%;height:auto;display:block;" viewBox="0 0 900 500" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="da" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#555"/></marker>
+          <marker id="dax" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto-start-reverse">
+            <path d="M0,0 L6,3 L0,6 Z" fill="#555"/>
+          </marker>
+        </defs>
+
+        <!-- ═══ BACKGROUND ═══ -->
+        <rect width="900" height="500" fill="#f4f1ec" rx="6"/>
+        <text x="450" y="24" text-anchor="middle" font-size="11" fill="#aaa" font-weight="700" letter-spacing="1.5">DETALJVY  ·  28×45 MM  ·  45° GERSKAPNING  ·  90° YTTERHÖRN</text>
+        <line x1="450" y1="36" x2="450" y2="490" stroke="#e0dbd4" stroke-width="1"/>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- LEFT PANEL: E-Z SEKTION (vy söder→norr)   -->
+        <!-- ═══════════════════════════════════════════ -->
+        <text x="225" y="52" text-anchor="middle" font-size="10" fill="#888" font-weight="700" letter-spacing="1">SEKTION  ·  E–Z-PLANET  ·  VY SÖDER→NORR</text>
+        <text x="225" y="65" text-anchor="middle" font-size="8.5" fill="#bbb">Snittplan tangerar spaljeribbornas sydyta</text>
+
+        <!-- Outer corner at (200, 130) -->
+        <!-- Spaljeribba: 90px wide (45mm ×2), miter cut 56px (28mm ×2) -->
+        <!-- Shape: outer corner → diagonal cut → inner top → right edge → bottom → left edge -->
+        <polygon points="200,130 256,186 290,186 290,440 200,440" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1.5"/>
+
+        <!-- Pergolataksribba: 56px tall (28mm ×2) -->
+        <!-- Shape: outer corner → right end top → right end bottom → inner corner (shared miter) -->
+        <polygon points="200,130 400,130 400,186 256,186" fill="#252525" stroke="#2a2a2a" stroke-width="1.5"/>
+
+        <!-- 45° miter face (the shared joint surface, highlighted) -->
+        <line x1="200" y1="130" x2="256" y2="186" stroke="#e04020" stroke-width="2.5" stroke-dasharray="6,3"/>
+
+        <!-- 90° corner mark at outer corner -->
+        <path d="M200,152 L220,152 L220,130" fill="none" stroke="#e04020" stroke-width="1.5"/>
+        <text x="228" y="150" font-size="9" fill="#e04020" font-weight="700">90°</text>
+
+        <!-- 45° angle arc -->
+        <path d="M200,155 A 25,25 0 0 1 222,133" fill="none" stroke="#e04020" stroke-width="1.5"/>
+        <text x="186" y="155" text-anchor="end" font-size="9" fill="#e04020">45°</text>
+
+        <!-- Cross-hatch on miter face area to show cut wood grain -->
+        <clipPath id="miter-clip">
+          <polygon points="200,130 256,186 240,186 184,130"/>
+        </clipPath>
+        <rect x="180" y="125" width="90" height="70" fill="none" stroke="#555" stroke-width="0.5" stroke-dasharray="3,3" clip-path="url(#miter-clip)"/>
+
+        <!-- Dim: spaljeribba total width 45mm -->
+        <line x1="200" y1="458" x2="290" y2="458" stroke="#666" stroke-width="1" marker-start="url(#dax)" marker-end="url(#da)"/>
+        <line x1="200" y1="441" x2="200" y2="460" stroke="#666" stroke-width="0.7"/>
+        <line x1="290" y1="441" x2="290" y2="460" stroke="#666" stroke-width="0.7"/>
+        <text x="245" y="472" text-anchor="middle" font-size="8.5" fill="#555">45 mm (djup E-V)</text>
+
+        <!-- Dim: miter offset 28mm -->
+        <line x1="200" y1="200" x2="256" y2="200" stroke="#666" stroke-width="0.8" stroke-dasharray="3,2" marker-start="url(#dax)" marker-end="url(#da)"/>
+        <text x="228" y="213" text-anchor="middle" font-size="8" fill="#888">28 mm</text>
+
+        <!-- Dim: pergolataksribba height 28mm -->
+        <line x1="414" y1="130" x2="414" y2="186" stroke="#666" stroke-width="1" marker-start="url(#dax)" marker-end="url(#da)"/>
+        <line x1="400" y1="130" x2="416" y2="130" stroke="#666" stroke-width="0.7"/>
+        <line x1="400" y1="186" x2="416" y2="186" stroke="#666" stroke-width="0.7"/>
+        <text x="428" y="162" text-anchor="start" font-size="8.5" fill="#555">28 mm</text>
+
+        <!-- Spaljeribba label -->
+        <line x1="200" y1="320" x2="150" y2="320" stroke="#999" stroke-width="0.8"/>
+        <text x="145" y="315" text-anchor="end" font-size="9" fill="#444" font-weight="600">SPALJERIBBA</text>
+        <text x="145" y="327" text-anchor="end" font-size="8" fill="#666">28×45 mm · stående</text>
+        <text x="145" y="338" text-anchor="end" font-size="8" fill="#e04020">45° gers i topp</text>
+
+        <!-- Pergolataksribba label -->
+        <line x1="300" y1="158" x2="300" y2="105" stroke="#999" stroke-width="0.8"/>
+        <text x="300" y="100" text-anchor="middle" font-size="9" fill="#444" font-weight="600">PERGOLATAKSRIBBA</text>
+        <text x="300" y="88" text-anchor="middle" font-size="8" fill="#666">28×45 mm · liggande</text>
+        <text x="300" y="77" text-anchor="middle" font-size="8" fill="#e04020">45° gers i ände</text>
+
+        <!-- Assembly principle note -->
+        <text x="225" y="490" text-anchor="middle" font-size="8" fill="#888" font-style="italic">De röda ytorna fogas med D4-lim + skruv från baksidan → 90° utan synligt ändträ utifrån</text>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- RIGHT PANEL: FRONT VIEW + BUILD NOTES      -->
+        <!-- ═══════════════════════════════════════════ -->
+        <text x="675" y="52" text-anchor="middle" font-size="10" fill="#888" font-weight="700" letter-spacing="1">UTSIDA  ·  YTTRE UTSEENDE  ·  VY FRÅN VÄSTER</text>
+
+        <!-- Sky background for front view -->
+        <rect x="460" y="68" width="420" height="280" fill="#d8e8f0" rx="4"/>
+        <!-- Floor -->
+        <rect x="460" y="348" width="420" height="50" fill="#c9bfa8" rx="0 0 4 4"/>
+        <line x1="460" y1="348" x2="880" y2="348" stroke="#a09585" stroke-width="1.5"/>
+
+        <!-- Vertical spalje ribbor (front/west face, 28mm visible each) -->
+        <!-- Scale: 1.5px/mm: 28mm=42px, 15mm gap=22px, c/c=64px -->
+        <!-- From y=100 (roof) down to y=348 (floor) = 248px height = ~165mm = represents spalje section height -->
+        <rect x="475" y="100" width="42" height="248" fill="#1a1a1a" rx="1"/>
+        <rect x="539" y="100" width="42" height="248" fill="#1a1a1a" rx="1"/>
+        <rect x="603" y="100" width="42" height="248" fill="#1a1a1a" rx="1"/>
+        <rect x="667" y="100" width="42" height="248" fill="#1a1a1a" rx="1"/>
+        <rect x="731" y="100" width="42" height="248" fill="#1a1a1a" rx="1"/>
+        <text x="813" y="230" font-size="22" fill="#bbb" text-anchor="middle">···</text>
+
+        <!-- Horizontal pergolataksribbor at top (south face of ends, 28mm tall) -->
+        <!-- They start ABOVE the spalje and go right (east into depth, so appear as horizontal bands at top) -->
+        <rect x="475" y="100" width="400" height="42" fill="#1d1d1d" rx="1"/>
+        <rect x="475" y="178" width="400" height="42" fill="#1d1d1d" rx="1" opacity="0.9"/>
+        <rect x="475" y="256" width="400" height="42" fill="#1d1d1d" rx="1" opacity="0.8"/>
+        <text x="875" y="310" font-size="16" fill="#bbb">⋮</text>
+
+        <!-- 90° corner mark at top-left -->
+        <rect x="475" y="100" width="22" height="22" fill="none" stroke="#e04020" stroke-width="1.5" rx="0"/>
+        <circle cx="475" cy="100" r="18" fill="none" stroke="#e04020" stroke-width="2" stroke-dasharray="5,3"/>
+        <text x="475" y="80" text-anchor="middle" font-size="8.5" fill="#e04020" font-weight="700">90° YTTERHÖRN</text>
+        <text x="475" y="70" text-anchor="middle" font-size="8" fill="#e04020">(gersfogen dold inåt)</text>
+
+        <!-- Labels for right panel -->
+        <text x="550" y="365" text-anchor="middle" font-size="8" fill="#888">spaljeribba (stående) →</text>
+        <text x="800" y="88" text-anchor="middle" font-size="8" fill="#888">← pergolataksribba (liggande, vy mot änden)</text>
+
+        <!-- BUILD NOTES (below front view) -->
+        <rect x="460" y="408" width="420" height="82" fill="#fff" rx="6" stroke="#e0dbd4" stroke-width="1"/>
+        <text x="670" y="426" text-anchor="middle" font-size="9.5" fill="#1a1a1a" font-weight="700">BYGGANVISNING  ·  45° HÖRNFOG</text>
+        <line x1="475" y1="432" x2="865" y2="432" stroke="#e0dbd4" stroke-width="0.8"/>
+        <text x="470" y="446" font-size="8.5" fill="#444">① Kap alla ribbor i gering 45° med fixtur i geringssåg – en inställning, alla kapningar identiska.</text>
+        <text x="470" y="459" font-size="8.5" fill="#444">② Spaljeribba: 45° i toppen. Pergolataksribba: 45° i båda ändarna (möter spalje V + stombalk Ö).</text>
+        <text x="470" y="472" font-size="8.5" fill="#444">③ Kontrollpassning torr. Limma med D4-lim (utomhus). Fäst med skruv bakifrån.</text>
+        <text x="470" y="485" font-size="8.5" fill="#888" font-style="italic">Räkna 10–15% spill. Thermowood alt. tryckimpr. 28×45. Ytbehandla: svarttjära alt. täcklasyr svart.</text>
+
+      </svg>
+    </div>
+  </div>
+</div>
+
+<div class="panel" id="panel-sketch" style="display:none!important">
+  <div class="sketch-wrap">
+    <div class="sketch-label">Inspirationsskiss · Perspektiv söderifrån · Kvällsstämning</div>
+    <svg class="sketch" viewBox="0 0 700 430" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- Sky: warm evening -->
+        <linearGradient id="skg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stop-color="#8fb8d0"/>
+          <stop offset="45%"  stop-color="#c8dcea"/>
+          <stop offset="100%" stop-color="#e0ece8"/>
+        </linearGradient>
+        <!-- Floor: warm wood -->
+        <linearGradient id="flg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stop-color="#9a8050"/>
+          <stop offset="100%" stop-color="#c8a868"/>
+        </linearGradient>
+        <!-- Wall left gradient: depth shadow -->
+        <linearGradient id="wlg" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%"   stop-color="#0c0c0c"/>
+          <stop offset="100%" stop-color="#1e1e1e"/>
+        </linearGradient>
+        <!-- Bulb glow -->
+        <radialGradient id="bulb" cx="50%" cy="50%" r="50%">
+          <stop offset="0%"   stop-color="#fff5c0" stop-opacity="1"/>
+          <stop offset="50%"  stop-color="#ffd970" stop-opacity="0.55"/>
+          <stop offset="100%" stop-color="#ffd970" stop-opacity="0"/>
+        </radialGradient>
+        <!-- Warm floor glow (evening) -->
+        <radialGradient id="floorwarm" cx="50%" cy="80%" r="60%">
+          <stop offset="0%"   stop-color="#e8a030" stop-opacity="0.12"/>
+          <stop offset="100%" stop-color="#e8a030" stop-opacity="0"/>
+        </radialGradient>
+        <!-- Table surface -->
+        <radialGradient id="tableg" cx="40%" cy="35%" r="60%">
+          <stop offset="0%"   stop-color="#8a5038"/>
+          <stop offset="100%" stop-color="#5a3020"/>
+        </radialGradient>
+      </defs>
+
+      <!-- ── SKY ── -->
+      <rect width="700" height="430" fill="url(#skg)"/>
+
+      <!-- ── GARDEN / GREENERY – right side (east, open) ── -->
+      <ellipse cx="648" cy="240" rx="58" ry="85" fill="#2e5230" opacity="0.5"/>
+      <ellipse cx="660" cy="260" rx="42" ry="62" fill="#3a6440" opacity="0.6"/>
+      <ellipse cx="632" cy="220" rx="32" ry="48" fill="#305035" opacity="0.5"/>
+      <rect    x="650" y="308" width="9" height="65" fill="#3a2810" opacity="0.35"/>
+      <ellipse cx="622" cy="330" rx="24" ry="13" fill="#304830" opacity="0.45"/>
+      <ellipse cx="655" cy="338" rx="18" ry="10" fill="#385038" opacity="0.4"/>
+      <!-- Distant horizon greenery -->
+      <rect x="605" y="196" width="95" height="10" fill="#405840" opacity="0.2" rx="5"/>
+
+      <!-- ── FÖRRÅD WALL – back (north) ── -->
+      <polygon points="205,122 495,122 495,284 205,284" fill="#685e56"/>
+      <line x1="205" y1="148" x2="495" y2="148" stroke="#5a5048" stroke-width="0.8" opacity="0.55"/>
+      <line x1="205" y1="174" x2="495" y2="174" stroke="#5a5048" stroke-width="0.8" opacity="0.55"/>
+      <line x1="205" y1="200" x2="495" y2="200" stroke="#5a5048" stroke-width="0.8" opacity="0.55"/>
+      <line x1="205" y1="226" x2="495" y2="226" stroke="#5a5048" stroke-width="0.8" opacity="0.55"/>
+      <line x1="205" y1="252" x2="495" y2="252" stroke="#5a5048" stroke-width="0.8" opacity="0.55"/>
+      <!-- Shadow under beam -->
+      <polygon points="205,122 495,122 495,138 205,138" fill="#3a3430" opacity="0.5"/>
+      <text x="350" y="215" text-anchor="middle" font-size="9.5" fill="#887870" font-weight="500" letter-spacing="1.5" opacity="0.7">FÖRRÅD</text>
+
+      <!-- ── INSYNSSKYDD + LEFT WALL (west) ── -->
+      <polygon points="102,82 102,372 205,284 205,122" fill="url(#wlg)"/>
+      <!-- Vertical panel lines in perspective -->
+      <line x1="114" y1="82"  x2="214" y2="126" stroke="#252525" stroke-width="1.3" opacity="0.65"/>
+      <line x1="126" y1="82"  x2="213" y2="148" stroke="#252525" stroke-width="1.2" opacity="0.55"/>
+      <line x1="138" y1="82"  x2="211" y2="172" stroke="#202020" stroke-width="1"   opacity="0.45"/>
+      <line x1="150" y1="88"  x2="210" y2="200" stroke="#1e1e1e" stroke-width="1"   opacity="0.38"/>
+      <line x1="163" y1="98"  x2="209" y2="228" stroke="#1a1a1a" stroke-width="0.9" opacity="0.32"/>
+      <line x1="175" y1="112" x2="208" y2="256" stroke="#1a1a1a" stroke-width="0.9" opacity="0.28"/>
+      <line x1="188" y1="130" x2="207" y2="280" stroke="#1a1a1a" stroke-width="0.8" opacity="0.22"/>
+      <!-- Climbing plant on insynsskydd -->
+      <ellipse cx="146" cy="198" rx="13" ry="18" fill="#2e5030" opacity="0.55"/>
+      <ellipse cx="136" cy="180" rx="9"  ry="13" fill="#385840" opacity="0.5"/>
+      <ellipse cx="150" cy="170" rx="8"  ry="11" fill="#2a4c2e" opacity="0.45"/>
+      <ellipse cx="140" cy="156" rx="7"  ry="10" fill="#326038" opacity="0.4"/>
+      <path d="M 144 220 Q 140 198 136 176 Q 142 155 150 140" fill="none" stroke="#2e5030" stroke-width="1.8" opacity="0.4"/>
+
+      <!-- ── KITCHEN COUNTER (on left wall, lower part) ── -->
+      <!-- Counter body: dark panel seen at angle -->
+      <polygon points="102,240 102,372 188,302 188,182" fill="#181818"/>
+      <!-- Subtle panel-lines on counter (perspective) -->
+      <line x1="116" y1="240" x2="190" y2="192" stroke="#222" stroke-width="1" opacity="0.5"/>
+      <line x1="130" y1="252" x2="190" y2="214" stroke="#222" stroke-width="1" opacity="0.45"/>
+      <line x1="145" y1="268" x2="190" y2="240" stroke="#222" stroke-width="1" opacity="0.38"/>
+      <line x1="160" y1="287" x2="190" y2="265" stroke="#222" stroke-width="0.9" opacity="0.3"/>
+      <line x1="175" y1="310" x2="190" y2="292" stroke="#222" stroke-width="0.9" opacity="0.25"/>
+      <!-- Bänkskiva concrete top (thin strip, sedd i vinkel) -->
+      <polygon points="102,238 102,252 194,180 194,168" fill="#8e8c88"/>
+      <!-- Subtle concrete texture -->
+      <line x1="120" y1="245" x2="190" y2="174" stroke="#9a9896" stroke-width="0.7" opacity="0.4"/>
+      <line x1="145" y1="247" x2="190" y2="178" stroke="#9a9896" stroke-width="0.7" opacity="0.35"/>
+      <!-- Mustang Jewel 6 grill (on counter surface) -->
+      <polygon points="114,254 158,224 158,258 114,292" fill="#1e1e1e"/>
+      <line x1="118" y1="258" x2="155" y2="230" stroke="#363636" stroke-width="1.5"/>
+      <line x1="118" y1="266" x2="155" y2="238" stroke="#363636" stroke-width="1.5"/>
+      <line x1="118" y1="274" x2="155" y2="246" stroke="#363636" stroke-width="1.5"/>
+      <line x1="118" y1="282" x2="155" y2="254" stroke="#363636" stroke-width="1.5"/>
+      <!-- Herb plant on counter -->
+      <ellipse cx="180" cy="167" rx="11" ry="7"  fill="#3a5e3a" opacity="0.85"/>
+      <ellipse cx="174" cy="163" rx="7"  ry="5"  fill="#4a7048" opacity="0.8"/>
+      <ellipse cx="186" cy="164" rx="6"  ry="4"  fill="#345434" opacity="0.75"/>
+      <rect    x="179" y="167" width="3" height="6" fill="#4a3018" opacity="0.5"/>
+      <!-- Second small pot -->
+      <ellipse cx="166" cy="175" rx="8"  ry="5"  fill="#507050" opacity="0.7"/>
+      <rect    x="164" y="175" width="4" height="5" fill="#5a4020" opacity="0.45"/>
+
+      <!-- ── DECK FLOOR ── -->
+      <polygon points="102,372 598,372 495,284 205,284" fill="url(#flg)"/>
+      <!-- Deck planks (E-W horizontal, perspective) -->
+      <line x1="116" y1="360" x2="573" y2="360" stroke="#907040" stroke-width="1.1" opacity="0.55"/>
+      <line x1="130" y1="348" x2="550" y2="348" stroke="#907040" stroke-width="1"   opacity="0.5"/>
+      <line x1="143" y1="336" x2="527" y2="336" stroke="#907040" stroke-width="1"   opacity="0.45"/>
+      <line x1="157" y1="324" x2="504" y2="324" stroke="#907040" stroke-width="0.9" opacity="0.42"/>
+      <line x1="170" y1="312" x2="481" y2="312" stroke="#907040" stroke-width="0.9" opacity="0.38"/>
+      <line x1="184" y1="300" x2="458" y2="300" stroke="#907040" stroke-width="0.8" opacity="0.35"/>
+      <line x1="197" y1="288" x2="435" y2="288" stroke="#907040" stroke-width="0.8" opacity="0.3"/>
+      <!-- Warm evening floor glow -->
+      <polygon points="102,372 598,372 495,284 205,284" fill="url(#floorwarm)"/>
+
+      <!-- ── PERGOLA POSTS ── -->
+      <!-- Front-left -->
+      <rect x="96"  y="82"  width="11" height="290" fill="#141414" rx="1"/>
+      <!-- Front-right -->
+      <rect x="593" y="82"  width="11" height="290" fill="#141414" rx="1"/>
+      <!-- Back-left (slimmer, receding) -->
+      <rect x="200" y="118" width="9"  height="166" fill="#0e0e0e" rx="1" opacity="0.8"/>
+      <!-- Back-right -->
+      <rect x="490" y="118" width="9"  height="166" fill="#0e0e0e" rx="1" opacity="0.8"/>
+
+      <!-- ── PERGOLA BEAMS ── -->
+      <!-- Front beam (thick, close) -->
+      <rect x="92" y="76" width="516" height="12" fill="#141414" rx="1"/>
+      <!-- Back beam (thinner, receding) -->
+      <rect x="198" y="116" width="304" height="8" fill="#0e0e0e" rx="1" opacity="0.85"/>
+      <!-- Side beams (connecting front to back) -->
+      <polygon points="96,82 103,82 207,118 200,118" fill="#121212" opacity="0.85"/>
+      <polygon points="597,82 604,82 499,118 493,118" fill="#121212" opacity="0.85"/>
+
+      <!-- ── NÄTTA RIBBOR (14 thin rafters, perspective-converging N→S) ── -->
+      <!-- From front beam (y=82) → back beam (y=118), x converges toward center -->
+      <line stroke="#141414" stroke-width="3.5" x1="140" y1="82" x2="228" y2="118" opacity="0.92"/>
+      <line stroke="#141414" stroke-width="3.5" x1="178" y1="82" x2="250" y2="118" opacity="0.92"/>
+      <line stroke="#141414" stroke-width="3.5" x1="217" y1="82" x2="273" y2="118" opacity="0.92"/>
+      <line stroke="#141414" stroke-width="3.5" x1="255" y1="82" x2="295" y2="118" opacity="0.92"/>
+      <line stroke="#141414" stroke-width="3.5" x1="293" y1="82" x2="317" y2="118" opacity="0.92"/>
+      <line stroke="#141414" stroke-width="3.5" x1="331" y1="82" x2="339" y2="118" opacity="0.92"/>
+      <line stroke="#141414" stroke-width="3.5" x1="369" y1="82" x2="362" y2="118" opacity="0.92"/>
+      <line stroke="#141414" stroke-width="3.5" x1="408" y1="82" x2="384" y2="118" opacity="0.92"/>
+      <line stroke="#141414" stroke-width="3.5" x1="446" y1="82" x2="406" y2="118" opacity="0.92"/>
+      <line stroke="#141414" stroke-width="3.5" x1="484" y1="82" x2="428" y2="118" opacity="0.92"/>
+      <line stroke="#141414" stroke-width="3.5" x1="522" y1="82" x2="451" y2="118" opacity="0.92"/>
+      <line stroke="#141414" stroke-width="3.5" x1="560" y1="82" x2="473" y2="118" opacity="0.92"/>
+
+      <!-- Shadow cast by beams onto back wall -->
+      <polygon points="205,122 495,122 495,134 205,134" fill="#302820" opacity="0.4"/>
+
+      <!-- ── STRING LIGHTS (festoon / slingor) ── -->
+      <!-- 3 strands, hanging in catenary curves front→back -->
+      <!-- Strand 1: left area -->
+      <path d="M 160,82 Q 178,106 196,82" fill="none" stroke="#b89028" stroke-width="1.2" opacity="0.8"/>
+      <path d="M 196,82 Q 207,110 218,82" fill="none" stroke="#b89028" stroke-width="1.2" opacity="0.8"/>
+      <!-- Strand 2: center -->
+      <path d="M 312,82 Q 330,110 348,82" fill="none" stroke="#b89028" stroke-width="1.2" opacity="0.8"/>
+      <path d="M 348,82 Q 355,108 362,82" fill="none" stroke="#b89028" stroke-width="1.2" opacity="0.8"/>
+      <!-- Strand 3: right area -->
+      <path d="M 462,82 Q 472,110 483,82" fill="none" stroke="#b89028" stroke-width="1.2" opacity="0.8"/>
+      <path d="M 483,82 Q 502,106 521,82" fill="none" stroke="#b89028" stroke-width="1.2" opacity="0.8"/>
+      <!-- Bulbs with glow -->
+      <circle cx="178" cy="106" r="12" fill="url(#bulb)"/>
+      <circle cx="178" cy="106" r="3.5" fill="#fffae0"/>
+      <circle cx="207" cy="110" r="10" fill="url(#bulb)" opacity="0.9"/>
+      <circle cx="207" cy="110" r="2.5" fill="#fffae0"/>
+      <circle cx="330" cy="110" r="12" fill="url(#bulb)"/>
+      <circle cx="330" cy="110" r="3.5" fill="#fffae0"/>
+      <circle cx="355" cy="108" r="10" fill="url(#bulb)" opacity="0.9"/>
+      <circle cx="355" cy="108" r="2.5" fill="#fffae0"/>
+      <circle cx="472" cy="110" r="12" fill="url(#bulb)"/>
+      <circle cx="472" cy="110" r="3.5" fill="#fffae0"/>
+      <circle cx="502" cy="106" r="10" fill="url(#bulb)" opacity="0.9"/>
+      <circle cx="502" cy="106" r="2.5" fill="#fffae0"/>
+      <!-- Smaller filler bulbs -->
+      <circle cx="163" cy="99"  r="7"  fill="url(#bulb)" opacity="0.7"/>
+      <circle cx="163" cy="99"  r="2"  fill="#fffae0"/>
+      <circle cx="313" cy="100" r="7"  fill="url(#bulb)" opacity="0.7"/>
+      <circle cx="313" cy="100" r="2"  fill="#fffae0"/>
+      <circle cx="462" cy="100" r="7"  fill="url(#bulb)" opacity="0.7"/>
+      <circle cx="462" cy="100" r="2"  fill="#fffae0"/>
+
+      <!-- ── DINING TABLE + CHAIRS ── -->
+      <!-- Table: foreshortened ellipse (perspective floor) -->
+      <!-- Shadow under table -->
+      <ellipse cx="340" cy="322" rx="75" ry="20" fill="#6a5030" opacity="0.25"/>
+      <!-- Table surface -->
+      <ellipse cx="340" cy="316" rx="74" ry="27" fill="url(#tableg)"/>
+      <ellipse cx="340" cy="314" rx="70" ry="24" fill="#7a4c38" opacity="0.6"/>
+      <!-- Table edge highlight -->
+      <path d="M 268,314 Q 340,300 412,314" fill="none" stroke="#9a6050" stroke-width="1.5" opacity="0.5"/>
+      <!-- Candle on table -->
+      <rect x="337" y="297" width="7" height="20" fill="#d8d0a0" rx="1" opacity="0.9"/>
+      <circle cx="340" cy="295" r="14" fill="url(#bulb)" opacity="0.7"/>
+      <circle cx="340" cy="296" r="4"  fill="#fff5c0"/>
+      <!-- Glasses / tableware hints -->
+      <circle cx="310" cy="310" r="5" fill="none" stroke="#a0b8c0" stroke-width="1.5" opacity="0.5"/>
+      <circle cx="370" cy="310" r="5" fill="none" stroke="#a0b8c0" stroke-width="1.5" opacity="0.5"/>
+      <circle cx="325" cy="325" r="5" fill="none" stroke="#a0b8c0" stroke-width="1.5" opacity="0.45"/>
+      <circle cx="355" cy="325" r="5" fill="none" stroke="#a0b8c0" stroke-width="1.5" opacity="0.45"/>
+
+      <!-- Chair north (far, small) -->
+      <ellipse cx="340" cy="291" rx="18" ry="6"  fill="#342018" opacity="0.8"/>
+      <rect    x="329" y="279" width="22" height="13" fill="#2a1a10" rx="2" opacity="0.75"/>
+      <line x1="332" y1="279" x2="332" y2="268" stroke="#2a1a10" stroke-width="2.5" opacity="0.7"/>
+      <line x1="340" y1="279" x2="340" y2="264" stroke="#2a1a10" stroke-width="2.5" opacity="0.7"/>
+      <line x1="348" y1="279" x2="348" y2="268" stroke="#2a1a10" stroke-width="2.5" opacity="0.7"/>
+      <line x1="329" y1="269" x2="351" y2="269" stroke="#2a1a10" stroke-width="2"   opacity="0.6"/>
+
+      <!-- Chair south (front, larger) -->
+      <ellipse cx="340" cy="353" rx="25" ry="9"  fill="#3a2010"/>
+      <rect    x="326" y="338" width="28" height="16" fill="#2a180c" rx="2"/>
+      <line x1="328" y1="354" x2="326" y2="370" stroke="#2a180c" stroke-width="2.5"/>
+      <line x1="338" y1="354" x2="337" y2="373" stroke="#2a180c" stroke-width="2.5"/>
+      <line x1="350" y1="354" x2="350" y2="373" stroke="#2a180c" stroke-width="2.5"/>
+      <line x1="362" y1="354" x2="362" y2="370" stroke="#2a180c" stroke-width="2.5"/>
+      <line x1="325" y1="363" x2="363" y2="363" stroke="#2a180c" stroke-width="2"  opacity="0.7"/>
+
+      <!-- Chair west -->
+      <ellipse cx="264" cy="320" rx="20" ry="7"  fill="#362012" opacity="0.85"/>
+      <rect    x="252" y="309" width="23" height="13" fill="#2a1810" rx="2" opacity="0.8"/>
+      <line x1="254" y1="322" x2="250" y2="336" stroke="#2a1810" stroke-width="2.5" opacity="0.8"/>
+      <line x1="262" y1="322" x2="258" y2="338" stroke="#2a1810" stroke-width="2.5" opacity="0.8"/>
+      <line x1="273" y1="322" x2="270" y2="337" stroke="#2a1810" stroke-width="2.5" opacity="0.8"/>
+      <line x1="250" y1="329" x2="272" y2="329" stroke="#2a1810" stroke-width="1.8" opacity="0.6"/>
+
+      <!-- Chair east -->
+      <ellipse cx="416" cy="320" rx="20" ry="7"  fill="#362012" opacity="0.85"/>
+      <rect    x="405" y="309" width="23" height="13" fill="#2a1810" rx="2" opacity="0.8"/>
+      <line x1="406" y1="322" x2="409" y2="336" stroke="#2a1810" stroke-width="2.5" opacity="0.8"/>
+      <line x1="415" y1="322" x2="417" y2="338" stroke="#2a1810" stroke-width="2.5" opacity="0.8"/>
+      <line x1="426" y1="322" x2="428" y2="337" stroke="#2a1810" stroke-width="2.5" opacity="0.8"/>
+      <line x1="407" y1="329" x2="429" y2="329" stroke="#2a1810" stroke-width="1.8" opacity="0.6"/>
+
+      <!-- ── TALL OLIVE TREE (NE corner, back-right) ── -->
+      <!-- Trunk -->
+      <path d="M 468 284 Q 464 250 470 210 Q 473 190 468 168" fill="none" stroke="#4a3020" stroke-width="7" opacity="0.65" stroke-linecap="round"/>
+      <!-- Main foliage -->
+      <ellipse cx="466" cy="150" rx="32" ry="40" fill="#2e5030" opacity="0.75"/>
+      <ellipse cx="452" cy="160" rx="20" ry="28" fill="#3a6040" opacity="0.7"/>
+      <ellipse cx="482" cy="157" rx="18" ry="24" fill="#285030" opacity="0.68"/>
+      <ellipse cx="466" cy="136" rx="22" ry="24" fill="#346438" opacity="0.65"/>
+      <!-- Silver-green olive highlights -->
+      <ellipse cx="458" cy="143" rx="9"  ry="12" fill="#6a8858" opacity="0.4"/>
+      <ellipse cx="474" cy="148" rx="7"  ry="9"  fill="#6a8858" opacity="0.35"/>
+      <!-- Olive fruit hint -->
+      <circle cx="455" cy="165" r="2.5" fill="#5a6840" opacity="0.5"/>
+      <circle cx="470" cy="160" r="2"   fill="#5a6840" opacity="0.5"/>
+      <circle cx="480" cy="168" r="2"   fill="#5a6840" opacity="0.45"/>
+
+      <!-- ── POTTED PLANT (SW corner, near bench) ── -->
+      <!-- Pot -->
+      <ellipse cx="170" cy="364" rx="16" ry="7"  fill="#5a3a18" opacity="0.7"/>
+      <rect    x="155" y="350" width="30" height="15" fill="#6a4820" rx="2" opacity="0.65"/>
+      <ellipse cx="170" cy="350" rx="16" ry="5"  fill="#7a5828" opacity="0.6"/>
+      <!-- Plant -->
+      <ellipse cx="170" cy="332" rx="18" ry="22" fill="#2e5230" opacity="0.8"/>
+      <ellipse cx="160" cy="328" rx="12" ry="15" fill="#386040" opacity="0.72"/>
+      <ellipse cx="180" cy="330" rx="10" ry="13" fill="#2c4e2e" opacity="0.68"/>
+      <!-- Leaf highlights -->
+      <ellipse cx="165" cy="322" rx="6"  ry="9"  fill="#4a7a50" opacity="0.45"/>
+      <ellipse cx="177" cy="325" rx="5"  ry="7"  fill="#4a7a50" opacity="0.4"/>
+
+      <!-- ── BENCH (foreground south, dark with seat surface) ── -->
+      <!-- Bench shadow on deck -->
+      <rect x="102" y="386" width="496" height="8" fill="#3a2810" opacity="0.2" rx="1"/>
+      <!-- Bench body -->
+      <rect x="102" y="388" width="496" height="40" fill="#141414" rx="2"/>
+      <!-- Seat surface (concrete/laminat) -->
+      <rect x="102" y="388" width="496" height="7" fill="#8a8682" rx="1"/>
+      <!-- Cushions on bench -->
+      <rect x="200" y="389" width="90" height="5" fill="#b8a8c0" rx="2" opacity="0.65"/>
+      <rect x="310" y="389" width="90" height="5" fill="#c0b0a0" rx="2" opacity="0.6"/>
+      <rect x="420" y="389" width="70" height="5" fill="#b8a8c0" rx="2" opacity="0.55"/>
+      <!-- Throw blanket hint -->
+      <rect x="380" y="388" width="60" height="6" fill="#8090a8" rx="1" opacity="0.5"/>
+
+      <!-- ── ARCHITECTURAL LABELS (italic, hand-drawn feel) ── -->
+      <!-- Leader line style: thin gray -->
+      <line x1="96"  y1="220" x2="58"  y2="232" stroke="#999" stroke-width="0.8" opacity="0.6"/>
+      <text x="54" y="230" text-anchor="end" font-size="9.5" fill="#666" font-style="italic" font-family="Georgia, serif">insynsskydd</text>
+
+      <line x1="150" y1="258" x2="50"  y2="280" stroke="#999" stroke-width="0.8" opacity="0.6"/>
+      <text x="46" y="278" text-anchor="end" font-size="9.5" fill="#666" font-style="italic" font-family="Georgia, serif">utekök</text>
+
+      <line x1="181" y1="166" x2="50"  y2="155" stroke="#999" stroke-width="0.8" opacity="0.6"/>
+      <text x="46" y="153" text-anchor="end" font-size="9.5" fill="#666" font-style="italic" font-family="Georgia, serif">betongbänkskiva</text>
+
+      <line x1="340" y1="316" x2="570" y2="305" stroke="#999" stroke-width="0.8" opacity="0.6"/>
+      <text x="574" y="303" font-size="9.5" fill="#666" font-style="italic" font-family="Georgia, serif">matbord + stolar</text>
+
+      <line x1="466" y1="190" x2="580" y2="175" stroke="#999" stroke-width="0.8" opacity="0.6"/>
+      <text x="584" y="173" font-size="9.5" fill="#666" font-style="italic" font-family="Georgia, serif">olivträd</text>
+
+      <line x1="330" y1="104" x2="330" y2="60" stroke="#999" stroke-width="0.8" opacity="0.6"/>
+      <text x="330" y="56" text-anchor="middle" font-size="9.5" fill="#666" font-style="italic" font-family="Georgia, serif">slingbelysning</text>
+
+      <line x1="350" y1="392" x2="350" y2="415" stroke="#999" stroke-width="0.8" opacity="0.6"/>
+      <text x="350" y="425" text-anchor="middle" font-size="9.5" fill="#666" font-style="italic" font-family="Georgia, serif">sittbänk med förvaring</text>
+
+      <line x1="170" y1="340" x2="58"  y2="360" stroke="#999" stroke-width="0.8" opacity="0.6"/>
+      <text x="54" y="358" text-anchor="end" font-size="9.5" fill="#666" font-style="italic" font-family="Georgia, serif">lagerblad / ört</text>
+
+      <!-- Title -->
+      <text x="16" y="22" font-size="13" fill="#1a1a1a" font-weight="700" font-family="Georgia, serif" letter-spacing="0.3">Utekök &amp; Pergola</text>
+      <text x="16" y="38" font-size="9"  fill="#888"    font-style="italic" font-family="Georgia, serif">Kvällsperspektiv söderifrån · havssidan bakom betraktaren</text>
+    </svg>
+
+    <div class="sketch-legend">
+      <div class="leg-item"><div class="leg-dot" style="background:#141414"></div>Svart pergola, kök &amp; insynsskydd</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#8a8682"></div>Betongbänkskiva</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#c8a868"></div>Altanträ</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#5a3020"></div>Matbord (trä)</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#fffae0; border:1px solid #ccc"></div>Slingbelysning</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#346438"></div>Olivträd + örter</div>
+    </div>
   </div>
 </div>
 
@@ -796,11 +1465,11 @@ const colorMap = {
     badgeBench:   '<span class="badge black">Svart panel + lock</span>',
   },
   brown: {
-    fill: '#6b4226', line: '#7d5030',
-    badgePanel:   '<span class="badge brown">Brunbetsad lärk</span>',
-    badgePergola: '<span class="badge brown">Brunmålad furu</span>',
-    badgeScreen:  '<span class="badge brown">Brun panel</span>',
-    badgeBench:   '<span class="badge brown">Brun panel + lock</span>',
+    fill: '#9B7040', line: '#B8905A',
+    badgePanel:   '<span class="badge brown">Thermowood brun (Aluwood)</span>',
+    badgePergola: '<span class="badge brown">Thermowood brun</span>',
+    badgeScreen:  '<span class="badge brown">Thermowood brun</span>',
+    badgeBench:   '<span class="badge brown">Thermowood brun</span>',
   }
 };
 
@@ -812,22 +1481,28 @@ function setColor(color) {
 
   // Plan fills
   document.querySelectorAll('.pcol').forEach(el => el.setAttribute('fill', c.fill));
-  ['kitchen-body','bench-body','screen-body'].forEach(id => {
+  ['kitchen-body','bench-body'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.setAttribute('fill', c.fill);
+  });
+  // Spalje pattern fills (plan + elevationer)
+  ['spalje-fill-plan','spalje-fill-e','spalje-fill-s'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.setAttribute('fill', c.fill);
   });
   document.querySelectorAll('.kpl,.bpl,.scrl').forEach(el => el.setAttribute('stroke', c.line));
 
   // East elevation
-  ['ekitchen','ebench','escreen','epost-l','epost-r','ebeam',
-   'espar1','espar2','espar3','espar4','espar5','espar6'].forEach(id => {
+  ['ekitchen','ebench','epost-l','epost-r','ebeam',
+   'espar1','espar2','espar3','espar4','espar5','espar6',
+   'espar7','espar8','espar9','espar10','espar11','espar12','espar13'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.setAttribute('fill', c.fill);
   });
   document.querySelectorAll('.ekpl,.ebpl').forEach(el => el.setAttribute('stroke', c.line));
 
   // South elevation
-  ['skitkitchen2','sbench2','sscreen2','spost-w','spost-e','sbeam2',
+  ['skitkitchen2','sbench2','spost-w','spost-e','sbeam2',
    'ssp1','ssp2','ssp3','ssp4'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.setAttribute('fill', c.fill);
@@ -839,46 +1514,146 @@ function setColor(color) {
   document.getElementById('mat-bench').innerHTML   = c.badgeBench;
 }
 
-let costView = 'material';
-const costs = {
-  material: [
-    { post: 'Pergola (stolpar + åsar)',    detalj: '4 st 90×90, åsar, beslag',              kr: 8000  },
-    { post: 'Utekök stomme + panel',       detalj: 'Tryckimpr. + 28×120 panel, 3 m',        kr: 13000 },
-    { post: 'Bänkskiva – gjuten betong',  detalj: 'Cement, sand, armering, form, impregn.', kr: 2200  },
-    { post: 'Diskho + snabbkoppling',     detalj: 'Enkel rostfri ho + trädgårdsslang',      kr: 800   },
-    { post: 'Mustang Jewel 6',            detalj: 'Drop-in gasolgrill, 6 brännare',          kr: 11000 },
-    { post: 'Insynsskydd (väst)',         detalj: 'Stomme + panel, ca 3,5 m hög',            kr: 5500  },
-    { post: 'Sittbänk/förvaring (söder)',detalj: 'Stomme, panel, lock, gasdämpare',          kr: 6500  },
-    { post: 'El (uttag + belysning)',     detalj: 'IP44 uttag + LED-slinga',                 kr: 4000  },
-    { post: 'Ytbehandling',              detalj: 'Svarttjära/täcklasyr, 2 ggr',              kr: 2500  },
-  ],
-  total: [
-    { post: 'Pergola (stolpar + åsar)',   detalj: 'Material + montering ~8h',                kr: 13200 },
-    { post: 'Utekök stomme + panel',      detalj: 'Material + snickeri ~22h',                kr: 27300 },
-    { post: 'Bänkskiva – gjuten betong', detalj: 'Material + DIY (gjutning/slipning ~10h)', kr: 2200  },
-    { post: 'Diskho + snabbkoppling',    detalj: 'Material + montering ~1h',                 kr: 1450  },
-    { post: 'Mustang Jewel 6',           detalj: 'Material + montering ~2h',                 kr: 12300 },
-    { post: 'Insynsskydd (väst)',        detalj: 'Material + montering ~6h',                 kr: 9400  },
-    { post: 'Sittbänk/förvaring (söder)',detalj: 'Material + snickeri ~9h',                 kr: 12350 },
-    { post: 'El (uttag + belysning)',    detalj: 'Material + el-inst. ~6h',                  kr: 7900  },
-    { post: 'Ytbehandling',             detalj: 'Material + arbete ~4h',                     kr: 5100  },
-  ]
-};
+// ── MATERIALLISTA MED EXPANDERBARA SEKTIONER ──
+const matSections = [
+  {
+    id:'altan', title:'Altan – träddäck 2,7×6,4 m', sub:'17,3 m²',
+    items:[
+      { a:'Betongplintar / markskruvar',  s:'Ø120 mm betong alt. skruvplintar Ø76',        n:14, e:'st',     p:55,  not:'Fördelas c/c ~900 mm under reglar' },
+      { a:'Markduk rotskydd',              s:'PP-duk 110 g/m², 2 m bredd',                  n:20, e:'m²',    p:14,  not:'Med 300 mm överlapp' },
+      { a:'Bärreglar 45×120 CCA',         s:'45×120 mm tryckimpr. klass AB, L=2,7 m',      n:12, e:'st',    p:118, not:'C/c 550 mm, Ö-V riktning' },
+      { a:'Ledreglar/kantbräda 45×170',   s:'45×170 mm CCA, L=6,4 m',                      n:2,  e:'st',    p:290, not:'Kant N och S' },
+      { a:'Deckingbrädor 28×120 CCA',     s:'28×120 mm tryckimpr., L=6,4 m',               n:22, e:'st',    p:195, not:'C/c ~125 mm, täcker 2,7 m bredd' },
+      { a:'Balksko galv 120 mm',          s:'Justerbar balksula för 45×120',                n:12, e:'st',    p:58,  not:'En per bäregel' },
+      { a:'Skruv A4 4,5×75',              s:'Rostfri, påse 200 st',                         n:3,  e:'pkt',   p:220, not:'Decking + reglarskarvar' },
+      { a:'Skruv A4 4,5×50',             s:'Rostfri, påse 100 st',                         n:1,  e:'pkt',   p:160, not:'Balksko + beslag' },
+    ]
+  },
+  {
+    id:'pergola', title:'Pergola – stomme 3,9×3,4 m', sub:'13,3 m²',
+    items:[
+      { a:'Stolpar 90×90 CCA',            s:'90×90 mm tryckimpr., L=2,8 m',                n:4,  e:'st',    p:390, not:'Förankras i betong alt. stolpsko' },
+      { a:'Ytterbalkar 45×145 CCA N-S',   s:'45×145 mm, L=3,4 m',                          n:2,  e:'st',    p:200, not:'Sidobalkar längs N och S' },
+      { a:'Ytterbalkar 45×145 CCA E-V',   s:'45×145 mm, L=3,9 m',                          n:2,  e:'st',    p:225, not:'Frontbalk (S) + väggbalk (N mot hus)' },
+      { a:'Taksribbor 28×45 CCA',         s:'28×45 mm, L=3,9 m, 45° gers i båda ändarna', n:15, e:'st',    p:68,  not:'C/c ~240 mm, löper E-V (15 ribbor → 3,4 m span)' },
+      { a:'Stolpsko galv 90×90',          s:'Justerbart ankare med bult',                   n:4,  e:'st',    p:185, not:'Alt. ingjuten bult M16' },
+      { a:'Bult + mutter M12×120 galv',   s:'Inv. hexagon, varmgalv.',                      n:16, e:'st',    p:32,  not:'Balkanknutar (4 anslutningar × 4 bult)' },
+      { a:'Skruv A4 5×80',               s:'Rostfri, påse 100 st',                         n:1,  e:'pkt',   p:280, not:'Ribbfästning + diverse' },
+    ]
+  },
+  {
+    id:'spalje', title:'Spalje – västra väggen (3,4×2,3 m)', sub:'67% genomsiktig',
+    items:[
+      { a:'Bottenregel 45×70 CCA',        s:'45×70 mm, L=3,4 m',                           n:1,  e:'st',    p:85,  not:'Horisontell nederkant' },
+      { a:'Mellanstolpar 45×70 CCA',      s:'45×70 mm, L=2,3 m',                           n:3,  e:'st',    p:58,  not:'Vertikala stöd c/c ~1,1 m' },
+      { a:'Spaljeribba 28×45 CCA stående',s:'28×45 mm, L=2,3 m, 45° gersning i topp',     n:79, e:'st',    p:32,  not:'C/c 43 mm → 3,4 m bredd = 79 ribbor (67% öppet)' },
+      { a:'Skruv A4 4×60',               s:'Rostfri, påse 200 st',                         n:2,  e:'pkt',   p:180, not:'Ribbor mot stomme, 2 skruvar/ribba' },
+      { a:'Trälim D4 utomhus',            s:'0,5 kg tub',                                   n:2,  e:'tub',   p:155, not:'45° gershörnen mot pergolataksribba' },
+    ]
+  },
+  {
+    id:'kok', title:'Utekök – stomme + panel (3,1 m)', sub:'längs västra väggen',
+    items:[
+      { a:'Reglar 45×95 CCA',             s:'45×95 mm, L=2,3 m',                           n:8,  e:'st',    p:88,  not:'Vertikala stöd i kökets stomme' },
+      { a:'Distansreglar 45×70 CCA',      s:'45×70 mm, L=2,4 m',                           n:4,  e:'st',    p:58,  not:'Horisontella distanser + stöd' },
+      { a:'Panel 28×120 CCA',             s:'28×120 mm, L=2,4 m',                          n:26, e:'st',    p:115, not:'Kökets ytterfront ~7,1 m²' },
+      { a:'Panelskruv A4 4,5×50',         s:'Rostfri, påse 200 st',                         n:2,  e:'pkt',   p:180, not:'Panel mot stomme' },
+      { a:'Vinkeljärn galv 40×40 mm',     s:'Med bult M6',                                  n:12, e:'st',    p:28,  not:'Stolpanslutningar' },
+      { a:'Dörr/lucka ventilerad (opt.)', s:'Träram + galvnät 500×600 mm',                  n:2,  e:'st',    p:420, not:'Gasolfack + förvaringsfack' },
+    ]
+  },
+  {
+    id:'bardisk', title:'Bardisk – L-form (1,8 m)', sub:'ansluter till utekök i söder',
+    items:[
+      { a:'Reglar 45×95 CCA',             s:'45×95 mm, L=1,2 m',                           n:6,  e:'st',    p:56,  not:'Stolpar i bardisks stomme' },
+      { a:'Panel 28×120 CCA',             s:'28×120 mm, L=1,9 m',                          n:12, e:'st',    p:88,  not:'Ytterfront ~2,5 m² fasad, svartlaserad' },
+      { a:'Skruv A4 4,5×50',             s:'Rostfri, påse 100 st',                         n:1,  e:'pkt',   p:160, not:'' },
+    ]
+  },
+  {
+    id:'bsk', title:'Bänkskivor – gjuten betong (DIY)', sub:'kök 3,1×0,6 m + bardisk 1,8×0,5 m',
+    items:[
+      { a:'Portlandcement CEM I 42,5',    s:'25 kg säck',                                   n:6,  e:'säck',  p:88,  not:'Ca 75 kg cement per m³ betong' },
+      { a:'Natursand 0–4 mm',             s:'25 kg säck',                                   n:10, e:'säck',  p:52,  not:'' },
+      { a:'Bergkross 8–16 mm',            s:'25 kg säck',                                   n:8,  e:'säck',  p:48,  not:'' },
+      { a:'Armeringsnät Ø6 mm',           s:'1,0×2,0 m panel',                              n:4,  e:'st',    p:125, not:'Lägg mitt i gjutgodset' },
+      { a:'Plastfilm (form-lining)',       s:'10 m rulle',                                   n:1,  e:'rulle', p:85,  not:'Hindrar betongfästning på form' },
+      { a:'Spånskivor 22 mm (form)',      s:'1,2×2,4 m',                                    n:2,  e:'st',    p:290, not:'Formens botten, återanvänds' },
+      { a:'Lithofin STAIN-STOP',          s:'1 L',                                           n:1,  e:'flaska',p:325, not:'Impregneringsbehandling, förnya vart 3–5 år' },
+    ]
+  },
+  {
+    id:'grill', title:'Grill + köksutrustning', sub:'',
+    items:[
+      { a:'Mustang Jewel 6 drop-in',      s:'6-brännare gasol, B=720 mm, drop-in',         n:1,  e:'st',    p:11000, not:'Monteras i betongskivan, drop-in-utskärning' },
+      { a:'Diskho rostfri drop-in',       s:'Enkelbricka 400×400 mm, djup 150 mm',         n:1,  e:'st',    p:520,   not:'Drop-in i betongskivan' },
+      { a:'Gardena snabbkoppling + slang',s:'Snabbkoppling system + 15 m slang',            n:1,  e:'sats',  p:460,   not:'Kopplas till befintlig utekran' },
+    ]
+  },
+  {
+    id:'el', title:'El – uttag + belysning', sub:'materialkostnad, ej installation',
+    items:[
+      { a:'Dubbelt uttag IP44 utomhus',   s:'16A, med lock, vitmonterad',                  n:2,  e:'st',    p:285,  not:'Köket + bardisken' },
+      { a:'LED-slinga IP65 3000K',        s:'10 m, 12V varmvit, dimbar',                   n:2,  e:'rulle', p:360,  not:'Längs pergolans balkar' },
+      { a:'Drivdon 12V 30W IP67',         s:'Utomhusklass',                                 n:1,  e:'st',    p:290,  not:'' },
+      { a:'Kabel H05RR-F 3G1,5',         s:'Gummikabel utomhus, meterpris',               n:15, e:'m',     p:38,   not:'Ej inkl. el-installation (kräver behörighet)' },
+      { a:'PVC-skyddskonduit Ø20',        s:'Meterpris',                                    n:8,  e:'m',     p:22,   not:'Kabelskydd längs balkar och i vägg' },
+    ]
+  },
+  {
+    id:'yta', title:'Ytbehandling', sub:'pergola, spalje, kök, bardisk',
+    items:[
+      { a:'Svarttjära Auson',             s:'5 L hink, traditionell trätjära',              n:3,  e:'hink',  p:385,  not:'1 hink ≈ 25 m² (1 strykning). Totalt ~60 m² → 3 hink' },
+      { a:'Alt: Täcklasyr svart',         s:'Jotun Demidekk Ultimate 2,7 L',               n:3,  e:'burk',  p:455,  not:'Alt till tjäran, 2 strykningar' },
+      { a:'Penslar 75 + 100 mm',          s:'Foam alt. borstenpensel utomhus',              n:4,  e:'st',    p:62,   not:'' },
+    ]
+  },
+];
 
-function setCostView(view) {
-  costView = view;
-  document.querySelectorAll('.cost-btn').forEach(b => b.classList.remove('active'));
-  event.target.classList.add('active');
-  renderCost();
+function secTotal(sec){ return sec.items.reduce((s,i)=>s+i.n*i.p, 0); }
+
+function toggleSec(id){
+  const hdr = document.getElementById('hdr-'+id);
+  const det = document.getElementById('det-'+id);
+  const open = hdr.classList.toggle('open');
+  det.style.display = open ? 'block' : 'none';
 }
-function renderCost() {
-  const rows = costs[costView];
-  const total = rows.reduce((s,r) => s+r.kr, 0);
-  document.getElementById('cost-body').innerHTML =
-    rows.map(r => `<tr><td>${r.post}</td><td style="color:#777">${r.detalj}</td><td>${r.kr.toLocaleString('sv-SE')} kr</td></tr>`).join('') +
-    `<tr class="total"><td colspan="2">TOTALT (uppskattning)</td><td>${total.toLocaleString('sv-SE')} kr</td></tr>`;
+
+function renderMatAcc(){
+  const root = document.getElementById('mat-acc-root');
+  let grandTotal = 0;
+  root.innerHTML = matSections.map(sec => {
+    const tot = secTotal(sec);
+    grandTotal += tot;
+    const rows = sec.items.map(i => {
+      const sum = i.n * i.p;
+      return `<tr>
+        <td>${i.a}${i.not ? `<span class="mat-note">${i.not}</span>` : ''}</td>
+        <td>${i.s}</td>
+        <td style="text-align:center">${i.n}</td>
+        <td style="text-align:center">${i.e}</td>
+        <td style="text-align:right">${i.p.toLocaleString('sv-SE')}</td>
+        <td>${sum.toLocaleString('sv-SE')} kr</td>
+      </tr>`;
+    }).join('');
+    return `<div class="mat-sec">
+      <div class="mat-hdr" id="hdr-${sec.id}" onclick="toggleSec('${sec.id}')">
+        <div style="flex:1"><div class="mat-hdr-title">${sec.title}</div>${sec.sub?`<div class="mat-hdr-sub">${sec.sub}</div>`:''}</div>
+        <div class="mat-hdr-cost">${tot.toLocaleString('sv-SE')} kr</div>
+        <div class="mat-hdr-arrow">▼</div>
+      </div>
+      <div class="mat-detail" id="det-${sec.id}">
+        <table>
+          <thead><tr><th>Artikel</th><th>Specifikation</th><th style="text-align:center">Antal</th><th style="text-align:center">Enhet</th><th style="text-align:right">Á-pris</th><th style="text-align:right">Summa</th></tr></thead>
+          <tbody>${rows}</tbody>
+          <tr class="mat-total-row"><td colspan="5">Delsumma ${sec.title.split('–')[0].trim()}</td><td>${tot.toLocaleString('sv-SE')} kr</td></tr>
+        </table>
+      </div>
+    </div>`;
+  }).join('');
+  document.getElementById('mat-grand-val').textContent = grandTotal.toLocaleString('sv-SE') + ' kr';
 }
-renderCost();
+renderMatAcc();
 </script>
 </body>
 </html>
