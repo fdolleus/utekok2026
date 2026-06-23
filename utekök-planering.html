@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Utekök & Pergola – Planering</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f4f1ec; color: #1a1a1a; min-height: 100vh; }
+
+  header { background: #1a1a1a; color: #fff; padding: 20px 32px; display: flex; align-items: center; gap: 16px; }
+  header h1 { font-size: 20px; font-weight: 600; letter-spacing: 0.02em; }
+  header span { color: #888; font-size: 14px; }
+
+  .tabs { display: flex; background: #fff; border-bottom: 1px solid #e0dbd4; padding: 0 32px; overflow-x: auto; }
+  .tab { padding: 14px 18px; cursor: pointer; font-size: 14px; font-weight: 500; color: #777; border-bottom: 2px solid transparent; transition: all 0.2s; white-space: nowrap; }
+  .tab:hover { color: #1a1a1a; }
+  .tab.active { color: #1a1a1a; border-bottom-color: #1a1a1a; }
+
+  .content { padding: 32px; max-width: 1100px; margin: 0 auto; }
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* LAYOUT */
+  .layout-grid { display: grid; grid-template-columns: 1fr 320px; gap: 28px; align-items: start; }
+  .plan-wrap { background: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 1px 6px rgba(0,0,0,0.07); }
+  .plan-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 14px; }
+  svg.plan { width: 100%; height: auto; display: block; }
+
+  .color-toggle { display: flex; gap: 8px; margin-bottom: 18px; }
+  .color-btn { flex: 1; padding: 10px; border: 2px solid #e0dbd4; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; text-align: center; transition: all 0.2s; background: #fff; }
+  .color-btn.active { border-color: #1a1a1a; background: #1a1a1a; color: #fff; }
+  .color-btn.brown.active { border-color: #6b4226; background: #6b4226; color: #fff; }
+
+  .info-card { background: #fff; border-radius: 12px; padding: 18px; box-shadow: 0 1px 6px rgba(0,0,0,0.07); margin-bottom: 14px; }
+  .info-card h3 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 10px; }
+  .info-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid #f0ece6; font-size: 13px; }
+  .info-row:last-child { border-bottom: none; }
+  .info-row .label { color: #555; }
+  .info-row .val { font-weight: 600; text-align: right; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+  .badge.black { background: #1a1a1a; color: #fff; }
+  .badge.brown { background: #6b4226; color: #fff; }
+  .badge.green { background: #2d6a4f; color: #fff; }
+
+  /* ELEVATIONS */
+  .elev-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .elev-wrap { background: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 1px 6px rgba(0,0,0,0.07); }
+  .elev-wrap h3 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 14px; }
+  svg.elev { width: 100%; height: auto; display: block; }
+
+  /* COMPONENTS */
+  .comp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+  .comp-card { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 1px 6px rgba(0,0,0,0.07); }
+  .comp-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .comp-card .icon { font-size: 20px; }
+  .comp-card p { font-size: 13px; color: #555; line-height: 1.65; }
+  .comp-card .spec { margin-top: 12px; background: #f7f4f0; border-radius: 8px; padding: 10px 12px; font-size: 12px; color: #444; line-height: 1.7; }
+  .comp-card .spec strong { display: block; margin-bottom: 4px; font-size: 10px; text-transform: uppercase; letter-spacing: 0.07em; color: #999; }
+
+  /* CONCRETE GUIDE */
+  .concrete-guide { background: #fff; border-radius: 12px; padding: 28px; box-shadow: 0 1px 6px rgba(0,0,0,0.07); }
+  .concrete-guide h2 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+  .concrete-guide .sub { font-size: 13px; color: #888; margin-bottom: 24px; }
+  .steps { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; margin-top: 20px; }
+  .step { background: #f7f4f0; border-radius: 10px; padding: 16px; }
+  .step .num { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #aaa; margin-bottom: 6px; }
+  .step h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+  .step p { font-size: 12px; color: #555; line-height: 1.6; }
+  .step.warn { border-left: 4px solid #e8a020; }
+  .step.tip  { border-left: 4px solid #2d6a4f; }
+  .mat-list { margin-top: 20px; background: #f7f4f0; border-radius: 10px; padding: 16px 20px; }
+  .mat-list h4 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #888; margin-bottom: 10px; }
+  .mat-list table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .mat-list td { padding: 5px 0; border-bottom: 1px solid #e8e3da; }
+  .mat-list tr:last-child td { border-bottom: none; }
+  .mat-list td:last-child { text-align: right; font-weight: 600; }
+
+  /* COST */
+  .cost-table { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 6px rgba(0,0,0,0.07); }
+  .cost-table table { width: 100%; border-collapse: collapse; }
+  .cost-table th { background: #1a1a1a; color: #fff; padding: 12px 20px; text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: 0.07em; }
+  .cost-table td { padding: 11px 20px; border-bottom: 1px solid #f0ece6; font-size: 14px; }
+  .cost-table tr:last-child td { border-bottom: none; }
+  .cost-table tr.total td { background: #f7f4f0; font-weight: 700; font-size: 15px; }
+  .cost-table td:last-child { text-align: right; font-weight: 500; }
+  .note { margin-top: 12px; font-size: 12px; color: #888; padding: 0 4px; }
+  .cost-toggle { display: flex; gap: 8px; margin-bottom: 20px; }
+  .cost-btn { flex: 1; max-width: 180px; padding: 10px 16px; border: 2px solid #e0dbd4; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; text-align: center; transition: all 0.2s; background: #fff; }
+  .cost-btn.active { border-color: #1a1a1a; background: #1a1a1a; color: #fff; }
+
+  /* NOTES */
+  .notes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .note-card { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 1px 6px rgba(0,0,0,0.07); }
+  .note-card h3 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #888; margin-bottom: 12px; }
+  .note-card ul { list-style: none; }
+  .note-card ul li { font-size: 13px; color: #444; padding: 5px 0; padding-left: 16px; position: relative; line-height: 1.5; }
+  .note-card ul li::before { content: '→'; position: absolute; left: 0; color: #aaa; font-size: 11px; top: 6px; }
+  .note-card.warn { border-left: 4px solid #e8a020; }
+  .note-card.ok   { border-left: 4px solid #2d6a4f; }
+  .note-card.info { border-left: 4px solid #3a6ea5; }
+
+  @media (max-width: 768px) {
+    .layout-grid { grid-template-columns: 1fr; }
+    .elev-grid { grid-template-columns: 1fr; }
+    .notes-grid { grid-template-columns: 1fr; }
+    .content { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>Utekök & Pergola</h1>
+    <span>3,5 × 3,5 m · Kök längs västra insynsskyddet · Havsutsikt söder</span>
+  </div>
+</header>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab('layout')">Planlösning</div>
+  <div class="tab" onclick="showTab('elevations')">Sidovyer</div>
+  <div class="tab" onclick="showTab('concrete')">Betongbänkskiva</div>
+  <div class="tab" onclick="showTab('components')">Komponenter</div>
+  <div class="tab" onclick="showTab('cost')">Kostnad</div>
+  <div class="tab" onclick="showTab('notes')">Att tänka på</div>
+</div>
+
+<div class="content">
+
+<!-- ============================================================ -->
+<!-- PLANLÖSNING                                                    -->
+<!-- ============================================================ -->
+<div class="panel active" id="panel-layout">
+  <div class="layout-grid">
+    <div>
+      <div class="plan-wrap">
+        <div class="plan-title">Uppifrån · 3,5 × 3,5 m · Skala 1:25 · N=upp · Havsutsikt söder ↓</div>
+        <!--
+          UPPIFRÅN-VY – vi ser ytorna uppifrån:
+          · Bänkskiva (ljusgrå yta) med diskho och grill synliga från ovan
+          · Pergola: tunna ribbolinjer (öst–väst) + stolpar (kvadrater)
+          · Insynsskydd: smal strip längs vänster
+          · Sittbänk: mörk yta längs söder
+          · Inga panellinjer synliga uppifrån
+        -->
+        <svg class="plan" id="svg-plan" viewBox="0 0 480 490" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="grid" width="25" height="25" patternUnits="userSpaceOnUse">
+              <path d="M 25 0 L 0 0 0 25" fill="none" stroke="#d5cfc5" stroke-width="0.4"/>
+            </pattern>
+            <pattern id="deck" width="14" height="200" patternUnits="userSpaceOnUse">
+              <rect width="14" height="200" fill="#c9bfa8"/>
+              <line x1="13" y1="0" x2="13" y2="200" stroke="#b8ae97" stroke-width="0.8"/>
+            </pattern>
+            <marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+              <path d="M0,0 L6,3 L0,6 Z" fill="#666"/>
+            </marker>
+            <marker id="arr-blue" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+              <path d="M0,0 L6,3 L0,6 Z" fill="#3a6ea5"/>
+            </marker>
+          </defs>
+
+          <!-- Bakgrund – altanträ -->
+          <rect width="480" height="490" fill="#e8e3da" rx="4"/>
+          <rect x="38" y="36" width="390" height="390" fill="url(#deck)"/>
+          <rect width="480" height="490" fill="url(#grid)" opacity="0.6"/>
+
+          <!-- FÖRRÅD – norr (topp) -->
+          <rect x="0" y="0" width="480" height="36" fill="#7a6e62" rx="0"/>
+          <text x="240" y="22" text-anchor="middle" font-size="10" fill="#e8e3da" font-weight="700" letter-spacing="1.5">FÖRRÅD (NORR)</text>
+
+          <!-- ── PERGOLA: TUNNA RIBBOR (uppifrån = smala horisontella streck öst–väst) ── -->
+          <!-- Stolpar: 4 hörn, 90×90 mm (= 9px i skalan) -->
+          <rect class="pcol" id="post-tl" x="38"  y="36"  width="12" height="12" fill="#1a1a1a" rx="1"/>
+          <rect class="pcol" id="post-tr" x="416" y="36"  width="12" height="12" fill="#1a1a1a" rx="1"/>
+          <rect class="pcol" id="post-bl" x="38"  y="414" width="12" height="12" fill="#1a1a1a" rx="1"/>
+          <rect class="pcol" id="post-br" x="416" y="414" width="12" height="12" fill="#1a1a1a" rx="1"/>
+
+          <!-- Sidobalkar nord–syd (sedd uppifrån = smala rektanglar längs sidorna) -->
+          <rect class="pcol" id="rafter-w" x="38"  y="36" width="8" height="390" fill="#1a1a1a" rx="0" opacity="0.85"/>
+          <rect class="pcol" id="rafter-e" x="420" y="36" width="8" height="390" fill="#1a1a1a" rx="0" opacity="0.85"/>
+
+          <!-- Tunna ribbor öst–väst (nätt pergola: 40×50mm c/c 28cm, ~13 ribbor) -->
+          <!-- Uppifrån ser vi ribborna som smala horisontella band -->
+          <rect class="pcol" x="46" y="62"  width="374" height="4" fill="#1a1a1a" rx="0" opacity="0.75"/>
+          <rect class="pcol" x="46" y="90"  width="374" height="4" fill="#1a1a1a" rx="0" opacity="0.75"/>
+          <rect class="pcol" x="46" y="118" width="374" height="4" fill="#1a1a1a" rx="0" opacity="0.75"/>
+          <rect class="pcol" x="46" y="146" width="374" height="4" fill="#1a1a1a" rx="0" opacity="0.75"/>
+          <rect class="pcol" x="46" y="174" width="374" height="4" fill="#1a1a1a" rx="0" opacity="0.75"/>
+          <rect class="pcol" x="46" y="202" width="374" height="4" fill="#1a1a1a" rx="0" opacity="0.75"/>
+          <rect class="pcol" x="46" y="230" width="374" height="4" fill="#1a1a1a" rx="0" opacity="0.75"/>
+          <rect class="pcol" x="46" y="258" width="374" height="4" fill="#1a1a1a" rx="0" opacity="0.75"/>
+          <rect class="pcol" x="46" y="286" width="374" height="4" fill="#1a1a1a" rx="0" opacity="0.75"/>
+          <rect class="pcol" x="46" y="314" width="374" height="4" fill="#1a1a1a" rx="0" opacity="0.75"/>
+          <rect class="pcol" x="46" y="342" width="374" height="4" fill="#1a1a1a" rx="0" opacity="0.75"/>
+          <rect class="pcol" x="46" y="370" width="374" height="4" fill="#1a1a1a" rx="0" opacity="0.75"/>
+          <rect class="pcol" x="46" y="398" width="374" height="4" fill="#1a1a1a" rx="0" opacity="0.75"/>
+
+          <!-- ── INSYNSSKYDD – västra sidan (sedd uppifrån = smal mörk remsa) ── -->
+          <!-- Tjocklek ~12 cm i verkligheten = 12px i skalan -->
+          <rect id="screen-body" x="10" y="36" width="28" height="390" fill="#1a1a1a" rx="1"/>
+          <text x="24" y="238" text-anchor="middle" font-size="8" fill="#777" transform="rotate(-90,24,238)" letter-spacing="0.5">INSYNSSKYDD</text>
+
+          <!-- ── UTEKÖK – längs väst (sedd uppifrån = BÄNKSKIVA som ljus yta) ── -->
+          <!-- Kök är 70cm djupt × 3,0m långt. Uppifrån ser vi bänkskivans yta. -->
+          <!-- Bänkskivans yta (betong/ljusgrå) -->
+          <rect id="kitchen-body" x="38" y="44" width="78" height="336" fill="#c8c4be" rx="2"/>
+          <!-- Bänkskivans framkant (öster) – tunn mörkare list -->
+          <rect x="113" y="44" width="3" height="336" fill="#a0988e" rx="0"/>
+          <!-- Kökets bakside (mot insynsskydd) – mörk remsa av stomme/panel -->
+          <rect x="38" y="44" width="8" height="336" fill="#2a2a2a" rx="0"/>
+
+          <!-- DISKHO uppifrån (rektangel med avlopp) – norr i kök -->
+          <rect x="52" y="72" width="55" height="42" fill="#b0aa9f" rx="3" stroke="#888" stroke-width="1"/>
+          <circle cx="79" cy="93" r="7" fill="#999" stroke="#777" stroke-width="1"/><!-- avlopp -->
+          <rect x="75" y="65" width="5" height="12" fill="#888" rx="2"/><!-- kran -->
+          <text x="79" y="128" text-anchor="middle" font-size="7.5" fill="#888" font-weight="600">DISKHO</text>
+
+          <!-- MUSTANG JEWEL 6 uppifrån (rektangel med galler) – söder i kök -->
+          <rect x="50" y="240" width="60" height="80" fill="#2a2a2a" rx="3" stroke="#555" stroke-width="1"/>
+          <!-- Grillgaller-linjer (uppifrån) -->
+          <line x1="57" y1="248" x2="57" y2="312" stroke="#444" stroke-width="1.5"/>
+          <line x1="64" y1="248" x2="64" y2="312" stroke="#444" stroke-width="1.5"/>
+          <line x1="71" y1="248" x2="71" y2="312" stroke="#444" stroke-width="1.5"/>
+          <line x1="78" y1="248" x2="78" y2="312" stroke="#444" stroke-width="1.5"/>
+          <line x1="85" y1="248" x2="85" y2="312" stroke="#444" stroke-width="1.5"/>
+          <line x1="92" y1="248" x2="92" y2="312" stroke="#444" stroke-width="1.5"/>
+          <line x1="99" y1="248" x2="99" y2="312" stroke="#444" stroke-width="1.5"/>
+          <text x="80" y="332" text-anchor="middle" font-size="7" fill="#888" font-weight="600">MUSTANG J6</text>
+
+          <!-- Kök-label (roterat) -->
+          <text x="76" y="165" text-anchor="middle" font-size="8.5" fill="#888" font-weight="700" transform="rotate(-90,76,165)" letter-spacing="0.5">BÄNKSKIVA (BETONG)</text>
+
+          <!-- Blickriktning kocken -->
+          <line x1="120" y1="200" x2="200" y2="200" stroke="#3a6ea5" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arr-blue)"/>
+          <text x="206" y="197" font-size="8" fill="#3a6ea5" font-weight="600">blickriktning →</text>
+
+          <!-- ── SITTBÄNK – södra kanten (uppifrån = mörk yta med sittytan) ── -->
+          <!-- Bänkens sittytan sedd uppifrån: ljus kant = lock/sittytan -->
+          <rect id="bench-body" x="120" y="376" width="298" height="50" fill="#1a1a1a" rx="2"/>
+          <!-- Lockytans ljusa kant (hyvlad panel/laminat) -->
+          <rect x="120" y="376" width="298" height="6" fill="#c8c4be" rx="1"/>
+          <text x="269" y="406" text-anchor="middle" font-size="9" fill="#777" font-weight="700" letter-spacing="0.3">SITTBÄNK / FÖRVARING</text>
+
+          <!-- Sittzon (öppen yta) -->
+          <text x="280" y="228" text-anchor="middle" font-size="12" fill="#a09585" font-weight="500">SITTZON</text>
+          <text x="280" y="246" text-anchor="middle" font-size="9" fill="#b8a890">↓ havet</text>
+
+          <!-- Havspilar söder -->
+          <text x="240" y="474" text-anchor="middle" font-size="10" fill="#3a6ea5" font-weight="700">↓ HAVSUTSIKT SÖDER</text>
+
+          <!-- Dimensionspilar -->
+          <line x1="38" y1="456" x2="428" y2="456" stroke="#666" stroke-width="1" marker-end="url(#arr)" marker-start="url(#arr)"/>
+          <text x="233" y="468" text-anchor="middle" font-size="10" fill="#555">3,5 m</text>
+          <line x1="458" y1="36"  x2="458" y2="426" stroke="#666" stroke-width="1" marker-end="url(#arr)" marker-start="url(#arr)"/>
+          <text x="472" y="236" text-anchor="middle" font-size="10" fill="#555" transform="rotate(90,472,236)">3,5 m</text>
+
+          <!-- Delmått -->
+          <line x1="10" y1="44" x2="10" y2="380" stroke="#aaa" stroke-width="0.8" stroke-dasharray="4,3" marker-end="url(#arr)" marker-start="url(#arr)"/>
+          <text x="5" y="216" text-anchor="middle" font-size="8.5" fill="#aaa" transform="rotate(-90,5,216)">~3,0 m kök</text>
+
+          <!-- Compass -->
+          <text x="20" y="468" font-size="11" fill="#777" font-weight="700">↑ N</text>
+        </svg>
+      </div>
+    </div>
+
+    <div>
+      <div class="color-toggle">
+        <div class="color-btn active" id="btn-black" onclick="setColor('black')">⬛ Svart</div>
+        <div class="color-btn brown" id="btn-brown" onclick="setColor('brown')">🟫 Brun</div>
+      </div>
+
+      <div class="info-card">
+        <h3>Yta &amp; mått</h3>
+        <div class="info-row"><span class="label">Total yta</span><span class="val">3,5 × 3,5 m</span></div>
+        <div class="info-row"><span class="label">Kök (djup, längs väst)</span><span class="val">~70 cm</span></div>
+        <div class="info-row"><span class="label">Kök (längd, N–S)</span><span class="val">~3,0 m</span></div>
+        <div class="info-row"><span class="label">Sittbänk (djup, söder)</span><span class="val">~50 cm</span></div>
+        <div class="info-row"><span class="label">Fri sittzon</span><span class="val">~2,7 × 2,5 m</span></div>
+        <div class="info-row"><span class="label">Insynsskydd (väst)</span><span class="val">~200 cm hög</span></div>
+        <div class="info-row"><span class="label">Pergola höjd</span><span class="val">~230 cm</span></div>
+      </div>
+
+      <div class="info-card">
+        <h3>Blickriktningar</h3>
+        <div class="info-row"><span class="label">Kocken</span><span class="val">Österut / söderut (havet)</span></div>
+        <div class="info-row"><span class="label">Sittbänk</span><span class="val">Norrut mot kök</span></div>
+        <div class="info-row"><span class="label">Insynsskydd</span><span class="val">Skärmar av grannen i väst</span></div>
+        <div class="info-row"><span class="label">Förråd (norr)</span><span class="val">Bakom ryggen på kocken</span></div>
+      </div>
+
+      <div class="info-card">
+        <h3>Materialval</h3>
+        <div class="info-row"><span class="label">Panel, kök</span><span class="val" id="mat-panel"><span class="badge black">Svart tryckimpr.</span></span></div>
+        <div class="info-row"><span class="label">Bänkskiva</span><span class="val">Gjuten betong, 50 mm</span></div>
+        <div class="info-row"><span class="label">Pergola</span><span class="val" id="mat-pergola"><span class="badge black">Svartmålad furu</span></span></div>
+        <div class="info-row"><span class="label">Insynskydd (väst)</span><span class="val" id="mat-screen"><span class="badge black">Svart panel</span></span></div>
+        <div class="info-row"><span class="label">Sittbänk (söder)</span><span class="val" id="mat-bench"><span class="badge black">Svart panel + lock</span></span></div>
+        <div class="info-row"><span class="label">Grill</span><span class="val">Mustang Jewel 6</span></div>
+        <div class="info-row"><span class="label">Vatten</span><span class="val">Slang + snabbkoppling</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SIDOVYER                                                       -->
+<!-- ============================================================ -->
+<div class="panel" id="panel-elevations">
+  <div class="elev-grid">
+
+    <!-- VY FRÅN ÖSTER: tittar västerut → ser kökets framsida + insynsskydd + pergola -->
+    <div class="elev-wrap">
+      <h3>Vy från öster – köksfasaden (kocken tittar mot dig)</h3>
+      <svg class="elev" id="svg-east" viewBox="0 0 560 340" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="ae" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z" fill="#888"/>
+          </marker>
+        </defs>
+        <!-- Himmel -->
+        <rect width="560" height="340" fill="#d8e8f0" rx="4"/>
+        <!-- Altan -->
+        <rect x="0" y="262" width="560" height="78" fill="#c9bfa8"/>
+        <line x1="0" y1="262" x2="560" y2="262" stroke="#a09585" stroke-width="2"/>
+        <!-- Förråd – bakvägg (höger = norr i denna vy) delvis synligt -->
+        <rect x="440" y="100" width="120" height="162" fill="#8a7e72" rx="2"/>
+        <text x="495" y="188" text-anchor="middle" font-size="10" fill="#c0b8af" font-weight="600">FÖRRÅD</text>
+
+        <!-- PERGOLA STOLPAR (vänster=söder, höger=norr) -->
+        <rect id="epost-l" x="44"  y="62" width="14" height="200" fill="#1a1a1a" rx="2"/>
+        <rect id="epost-r" x="502" y="62" width="14" height="200" fill="#1a1a1a" rx="2"/>
+        <!-- Stombalk (horisontell, bred) -->
+        <rect id="ebeam" x="30" y="54" width="500" height="12" fill="#1a1a1a" rx="2"/>
+        <!-- Nätta ribbor (sedd från öster = ändträ = små smala kvadrater, tätt) -->
+        <rect id="espar1"  x="62"  y="58" width="5" height="8" fill="#1a1a1a" rx="0" opacity="0.9"/>
+        <rect id="espar2"  x="100" y="58" width="5" height="8" fill="#1a1a1a" rx="0" opacity="0.9"/>
+        <rect id="espar3"  x="138" y="58" width="5" height="8" fill="#1a1a1a" rx="0" opacity="0.9"/>
+        <rect id="espar4"  x="176" y="58" width="5" height="8" fill="#1a1a1a" rx="0" opacity="0.9"/>
+        <rect id="espar5"  x="214" y="58" width="5" height="8" fill="#1a1a1a" rx="0" opacity="0.9"/>
+        <rect id="espar6"  x="252" y="58" width="5" height="8" fill="#1a1a1a" rx="0" opacity="0.9"/>
+        <rect id="espar7"  x="290" y="58" width="5" height="8" fill="#1a1a1a" rx="0" opacity="0.9"/>
+        <rect id="espar8"  x="328" y="58" width="5" height="8" fill="#1a1a1a" rx="0" opacity="0.9"/>
+        <rect id="espar9"  x="366" y="58" width="5" height="8" fill="#1a1a1a" rx="0" opacity="0.9"/>
+        <rect id="espar10" x="404" y="58" width="5" height="8" fill="#1a1a1a" rx="0" opacity="0.9"/>
+        <rect id="espar11" x="442" y="58" width="5" height="8" fill="#1a1a1a" rx="0" opacity="0.9"/>
+        <rect id="espar12" x="480" y="58" width="5" height="8" fill="#1a1a1a" rx="0" opacity="0.9"/>
+        <!-- Segelduk (optional, visas som linje med blå ton) -->
+        <line x1="30" y1="64" x2="530" y2="64" stroke="#7ab3d4" stroke-width="3" stroke-dasharray="8,4" opacity="0.6"/>
+        <text x="300" y="52" text-anchor="middle" font-size="8" fill="#5a9abf" font-style="italic">— — segelduk (vid regn) — —</text>
+
+        <!-- KÖK – framsida (stående panel, löper hela bredden = 3m kök + insynsskydd) -->
+        <rect id="ekitchen" x="44" y="182" width="416" height="80" fill="#1a1a1a" rx="2"/>
+        <!-- Stående panellinjer -->
+        <line class="ekpl" x1="68"  y1="182" x2="68"  y2="262" stroke="#2d2d2d" stroke-width="2"/>
+        <line class="ekpl" x1="92"  y1="182" x2="92"  y2="262" stroke="#2d2d2d" stroke-width="2"/>
+        <line class="ekpl" x1="116" y1="182" x2="116" y2="262" stroke="#2d2d2d" stroke-width="2"/>
+        <line class="ekpl" x1="140" y1="182" x2="140" y2="262" stroke="#2d2d2d" stroke-width="2"/>
+        <line class="ekpl" x1="164" y1="182" x2="164" y2="262" stroke="#2d2d2d" stroke-width="2"/>
+        <line class="ekpl" x1="188" y1="182" x2="188" y2="262" stroke="#2d2d2d" stroke-width="2"/>
+        <line class="ekpl" x1="212" y1="182" x2="212" y2="262" stroke="#2d2d2d" stroke-width="2"/>
+        <line class="ekpl" x1="236" y1="182" x2="236" y2="262" stroke="#2d2d2d" stroke-width="2"/>
+        <line class="ekpl" x1="260" y1="182" x2="260" y2="262" stroke="#2d2d2d" stroke-width="2"/>
+        <line class="ekpl" x1="284" y1="182" x2="284" y2="262" stroke="#2d2d2d" stroke-width="2"/>
+        <line class="ekpl" x1="308" y1="182" x2="308" y2="262" stroke="#2d2d2d" stroke-width="2"/>
+        <line class="ekpl" x1="332" y1="182" x2="332" y2="262" stroke="#2d2d2d" stroke-width="2"/>
+        <line class="ekpl" x1="356" y1="182" x2="356" y2="262" stroke="#2d2d2d" stroke-width="2"/>
+        <line class="ekpl" x1="380" y1="182" x2="380" y2="262" stroke="#2d2d2d" stroke-width="2"/>
+        <line class="ekpl" x1="404" y1="182" x2="404" y2="262" stroke="#2d2d2d" stroke-width="2"/>
+        <line class="ekpl" x1="428" y1="182" x2="428" y2="262" stroke="#2d2d2d" stroke-width="2"/>
+        <line class="ekpl" x1="452" y1="182" x2="452" y2="262" stroke="#2d2d2d" stroke-width="2"/>
+        <!-- Betongbänkskiva (ljus kant, 50mm) -->
+        <rect x="44" y="177" width="416" height="8" fill="#bbb9b4" rx="1"/>
+        <text x="230" y="173" text-anchor="middle" font-size="8" fill="#999">BETONGBÄNKSKIVA</text>
+        <!-- Diskho (norr = höger i denna vy) -->
+        <rect x="390" y="179" width="60" height="5" fill="#b0aa9f" rx="1"/>
+        <rect x="412" y="166" width="4" height="15" fill="#aaa" rx="1"/>
+        <!-- Mustang Jewel 6 (söder = vänster) -->
+        <rect x="80" y="178" width="90" height="6" fill="#333" rx="1"/>
+        <text x="125" y="172" text-anchor="middle" font-size="8" fill="#888">MUSTANG JEWEL 6</text>
+
+        <!-- INSYNSSKYDD VÄST – skymtar bakom vänster pergolastolpe -->
+        <rect id="escreen" x="14" y="80" width="32" height="182" fill="#1a1a1a" rx="2" opacity="0.8"/>
+        <line x1="22" y1="80" x2="22" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
+        <line x1="30" y1="80" x2="30" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
+        <line x1="38" y1="80" x2="38" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
+        <text x="18" y="175" text-anchor="middle" font-size="8" fill="#888" transform="rotate(-90,18,175)">INSYNSSKYDD</text>
+
+        <!-- SITTBÄNK – förgrunden (söder = vänster i denna vy, men bänken löper hela bredden söder) -->
+        <rect id="ebench" x="44" y="240" width="416" height="22" fill="#1a1a1a" rx="2"/>
+        <line class="ebpl" x1="75"  y1="240" x2="75"  y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
+        <line class="ebpl" x1="106" y1="240" x2="106" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
+        <line class="ebpl" x1="137" y1="240" x2="137" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
+        <line class="ebpl" x1="168" y1="240" x2="168" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
+        <line class="ebpl" x1="199" y1="240" x2="199" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
+        <line class="ebpl" x1="230" y1="240" x2="230" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
+        <line class="ebpl" x1="261" y1="240" x2="261" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
+        <line class="ebpl" x1="292" y1="240" x2="292" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
+        <line class="ebpl" x1="323" y1="240" x2="323" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
+        <line class="ebpl" x1="354" y1="240" x2="354" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
+        <line class="ebpl" x1="385" y1="240" x2="385" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
+        <line class="ebpl" x1="416" y1="240" x2="416" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
+        <line class="ebpl" x1="447" y1="240" x2="447" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
+        <rect x="44" y="238" width="416" height="5" fill="#ddd8cf" rx="1" opacity="0.7"/>
+        <text x="280" y="231" text-anchor="middle" font-size="9" fill="#aaa" font-weight="600">SITTBÄNK (SYD)</text>
+
+        <!-- Höjdmått -->
+        <line x1="536" y1="262" x2="536" y2="62" stroke="#888" stroke-width="1" marker-end="url(#ae)" marker-start="url(#ae)"/>
+        <text x="550" y="166" text-anchor="middle" font-size="10" fill="#666" transform="rotate(90,550,166)">230 cm</text>
+        <line x1="536" y1="262" x2="536" y2="185" stroke="#888" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="550" y="230" text-anchor="middle" font-size="9" fill="#999" transform="rotate(90,550,230)">90 cm</text>
+        <line x1="536" y1="262" x2="536" y2="240" stroke="#888" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="550" y="252" text-anchor="middle" font-size="9" fill="#999" transform="rotate(90,550,252)">45 cm</text>
+      </svg>
+    </div>
+
+    <!-- VY FRÅN SÖDER: tittar norrut → ser djupet, köket längs vänster sida -->
+    <div class="elev-wrap">
+      <h3>Vy från söder – djupsektion (havssidan)</h3>
+      <svg class="elev" id="svg-south" viewBox="0 0 420 340" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="as" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z" fill="#888"/>
+          </marker>
+        </defs>
+        <!-- Himmel -->
+        <rect width="420" height="340" fill="#d8e8f0" rx="4"/>
+        <!-- Altan -->
+        <rect x="0" y="262" width="420" height="78" fill="#c9bfa8"/>
+        <line x1="0" y1="262" x2="420" y2="262" stroke="#a09585" stroke-width="2"/>
+
+        <!-- Förråd – längst norr (höger i vy söder→norr) -->
+        <rect x="380" y="80" width="40" height="182" fill="#8a7e72" rx="2"/>
+        <text x="393" y="178" text-anchor="middle" font-size="8" fill="#c0b8af" font-weight="600" transform="rotate(90,393,178)">FÖRRÅD</text>
+
+        <!-- PERGOLA STOLPAR (vänster=väst, höger=öst) -->
+        <rect id="spost-w" x="44"  y="62" width="16" height="200" fill="#1a1a1a" rx="2"/>
+        <rect id="spost-e" x="360" y="62" width="16" height="200" fill="#1a1a1a" rx="2"/>
+        <!-- Balk -->
+        <rect id="sbeam2" x="28" y="54" width="364" height="13" fill="#1a1a1a" rx="2"/>
+        <!-- Takspärrar (öst–väst, sedd från söder = horisontella streck) -->
+        <rect id="ssp1" x="56"  y="62" width="310" height="5" fill="#1a1a1a" rx="1" opacity="0.35"/>
+        <rect id="ssp2" x="56"  y="108" width="310" height="5" fill="#1a1a1a" rx="1" opacity="0.3"/>
+        <rect id="ssp3" x="56"  y="154" width="310" height="5" fill="#1a1a1a" rx="1" opacity="0.25"/>
+        <rect id="ssp4" x="56"  y="200" width="310" height="5" fill="#1a1a1a" rx="1" opacity="0.2"/>
+
+        <!-- KÖK längs VÄSTRA sidan (sektion, djup ~70cm = 60px, vänster) -->
+        <rect id="skitkitchen2" x="44" y="182" width="60" height="80" fill="#1a1a1a" rx="2"/>
+        <line x1="58"  y1="182" x2="58"  y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
+        <line x1="72"  y1="182" x2="72"  y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
+        <line x1="86"  y1="182" x2="86"  y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
+        <!-- Bänkskiva – betong, östra kanten av köket -->
+        <rect x="100" y="178" width="8" height="86" fill="#bbb9b4" rx="1"/>
+        <text x="110" y="228" font-size="8" fill="#aaa" text-anchor="start">betong</text>
+        <text x="72" y="172" text-anchor="middle" font-size="8" fill="#aaa">KÖK ~70cm</text>
+
+        <!-- INSYNSSKYDD VÄST (längst vänster, bakom köket) -->
+        <rect id="sscreen2" x="14" y="80" width="32" height="182" fill="#1a1a1a" rx="2" opacity="0.8"/>
+        <line x1="22" y1="80" x2="22" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
+        <line x1="30" y1="80" x2="30" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
+        <line x1="38" y1="80" x2="38" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
+        <text x="25" y="175" text-anchor="middle" font-size="7.5" fill="#888" transform="rotate(-90,25,175)">INSYNSSKYDD</text>
+
+        <!-- SITTBÄNK SYD – i förgrunden (sedd framifrån, liten) -->
+        <rect id="sbench2" x="108" y="218" width="250" height="44" fill="#1a1a1a" rx="2" opacity="0.9"/>
+        <line x1="133" y1="218" x2="133" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
+        <line x1="158" y1="218" x2="158" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
+        <line x1="183" y1="218" x2="183" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
+        <line x1="208" y1="218" x2="208" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
+        <line x1="233" y1="218" x2="233" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
+        <line x1="258" y1="218" x2="258" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
+        <line x1="283" y1="218" x2="283" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
+        <line x1="308" y1="218" x2="308" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
+        <line x1="333" y1="218" x2="333" y2="262" stroke="#2d2d2d" stroke-width="1.5"/>
+        <rect x="108" y="216" width="250" height="5" fill="#ddd8cf" rx="1" opacity="0.7"/>
+        <text x="233" y="242" text-anchor="middle" font-size="9" fill="#aaa" font-weight="600">SITTBÄNK (SYD)</text>
+
+        <!-- Fri sittzon (streckad) -->
+        <rect x="108" y="182" width="250" height="36" fill="none" stroke="#b8a890" stroke-width="1" stroke-dasharray="4,3" rx="2"/>
+        <text x="233" y="202" text-anchor="middle" font-size="9" fill="#a09585">SITTZON ~2,7m</text>
+
+        <!-- Djupmått -->
+        <line x1="44" y1="290" x2="376" y2="290" stroke="#888" stroke-width="1" marker-end="url(#as)" marker-start="url(#as)"/>
+        <text x="210" y="304" text-anchor="middle" font-size="10" fill="#666">3,5 m (bredden)</text>
+        <!-- Höjd pergola -->
+        <line x1="398" y1="262" x2="398" y2="62" stroke="#888" stroke-width="1" marker-end="url(#as)" marker-start="url(#as)"/>
+        <text x="412" y="166" text-anchor="middle" font-size="10" fill="#666" transform="rotate(90,412,166)">230 cm</text>
+      </svg>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- BETONGBÄNKSKIVA – GJUTNINGSGUIDE                              -->
+<!-- ============================================================ -->
+<div class="panel" id="panel-concrete">
+  <div class="concrete-guide">
+    <h2>Gjuta betongbänkskiva utomhus</h2>
+    <div class="sub">Ca 3,0 m × 0,70 m × 50 mm · Gjuts in situ direkt på kökets stomme · ~300 kg totalt</div>
+
+    <div class="mat-list">
+      <h4>Material – ca 1 800–2 500 kr totalt</h4>
+      <table>
+        <tr><td>Portlandcement (CEM I 52,5R)</td><td>2 säckar à 25 kg</td><td>~400 kr</td></tr>
+        <tr><td>Fin ballast / kvartssand 0–4 mm</td><td>100 kg</td><td>~300 kr</td></tr>
+        <tr><td>Makadam 4–8 mm (lite grövre)</td><td>50 kg</td><td>~150 kr</td></tr>
+        <tr><td>Armeringsnät 150×150 mm</td><td>2 st (1×2 m)</td><td>~250 kr</td></tr>
+        <tr><td>OSB/plywood 18 mm till form</td><td>ca 1 skiva</td><td>~300 kr</td></tr>
+        <tr><td>Formolja / diskmedel</td><td>–</td><td>~50 kr</td></tr>
+        <tr><td>Plastfilm (fuktskydd under härdning)</td><td>–</td><td>~50 kr</td></tr>
+        <tr><td>Lithofin STAIN-STOP (impregnering)</td><td>1 flaska</td><td>~350 kr</td></tr>
+        <tr><td>Sliprondeller 40/80/120/200 + diamant</td><td>sats</td><td>~350 kr</td></tr>
+        <tr style="font-weight:700"><td>Totalt material</td><td></td><td>~2 200 kr</td></tr>
+      </table>
+    </div>
+
+    <div class="steps">
+
+      <div class="step">
+        <div class="num">Steg 1</div>
+        <h4>Bygg formen</h4>
+        <p>Montera form av 18 mm OSB/plywood runt kökets stomme. Forma innerkanten noggrant — betongens yta blir spegelbilden av formen. Smörj formens insida med formolja eller lite diskmedel så den släpper.</p>
+      </div>
+
+      <div class="step">
+        <div class="num">Steg 2</div>
+        <h4>Dilatationsfog mitt på</h4>
+        <p>Sätt en 5 mm PVC-list tvärs i mitten (ca 1,5 m in) som delar bänken i två sektioner. Minskar kraftigt risken för sprickor på en 3 m-skiva. Fogen tätas sedan med svart polyuretan­fogmassa.</p>
+      </div>
+
+      <div class="step">
+        <div class="num">Steg 3</div>
+        <h4>Armering</h4>
+        <p>Lägg armeringsnät 150×150 mm, håll det ca 15–20 mm upp från formens botten med distansklotsar (t.ex. plastbitar). Armeringen ska sitta i betongskivans mitt för maximal bärförmåga.</p>
+      </div>
+
+      <div class="step">
+        <div class="num">Steg 4</div>
+        <h4>Betongens recept</h4>
+        <p>Mix: 1 del cement : 1,5 del fin sand : 1 del makadam. Vatten-cementtal max 0,45 (styvare blandning = tätare betong). Blanda i liten omgång i taget, gjut direkt. Tillsätt inga lösningsmedelstillsatser.</p>
+      </div>
+
+      <div class="step tip">
+        <div class="num">Steg 5 – tips</div>
+        <h4>Gjutning</h4>
+        <p>Fyll formen i 2 lager. Vibrera med en gammal borrmaskin mot formen eller använd en träpinne för att slå ut luftbubblor. Avjämna ovansidan med en rätskiva. Ovansidan blir undersidan — om du vill ha slät framsida, gjut med den mot formen.</p>
+      </div>
+
+      <div class="step">
+        <div class="num">Steg 6</div>
+        <h4>Härdning</h4>
+        <p>Täck direkt med plastfilm. Låt härda minimum 7 dagar (helst 28 dagar för full styrka). Håll fuktig — häll lite vatten under plasten dag 2–4. Ta inte av formen förrän efter 7 dagar.</p>
+      </div>
+
+      <div class="step">
+        <div class="num">Steg 7</div>
+        <h4>Slipning</h4>
+        <p>Slipa med vinkelslip och diamantrondell: starta på korn 40, sedan 80, 120, 200. Blöt­slip för bästa resultat och för att undvika damm. Du styr hur mycket ballast som blottas och därmed uttrycket.</p>
+      </div>
+
+      <div class="step tip">
+        <div class="num">Steg 8 – avslut</div>
+        <h4>Impregnering</h4>
+        <p>Applicera Lithofin STAIN-STOP (eller liknande penetrerings­impregnering) i 2 omgångar. Tätar mot fett, vin och frost. Förnya vart 3–5 år. Resultatet: en mjuk, matt yta som patinerar vackert utomhus.</p>
+      </div>
+
+      <div class="step warn">
+        <div class="num">Var försiktig</div>
+        <h4>Diskhoöppning</h4>
+        <p>Placera en träbit/mall i formen för diskhoöppningen innan gjutning — du kan inte borra i efterhand utan att riskera sprickor. Mät noga mot diskhoens mått (ca 415×365 mm för standard) och lägg PVC-kanten runt öppningen.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- KOMPONENTER                                                    -->
+<!-- ============================================================ -->
+<div class="panel" id="panel-components">
+  <div class="comp-grid">
+
+    <div class="comp-card">
+      <h3><span class="icon">🍳</span> Platsbyggt utekök (längs väst)</h3>
+      <p>Byggt längs västra insynsskyddet. Kocken tittar österut/söderut med havsutsikten framför sig. Stående svart panel på tryckimpregnerad stomme.</p>
+      <div class="spec">
+        <strong>Specifikation</strong>
+        Mått: ca 300 cm lång × 70 cm djup × 90 cm hög<br>
+        Orientering: öppning mot öster<br>
+        Panel: 28×120 mm stående, svart<br>
+        Stomme: 45×95 mm tryckimpr.
+      </div>
+    </div>
+
+    <div class="comp-card">
+      <h3><span class="icon">🔥</span> Mustang Jewel 6</h3>
+      <p>Drop-in gasolgrill inbyggd i betongbänkskivan. 6 brännare med inbyggt lock. Gasolflaska i ventilerat utrymme i köket.</p>
+      <div class="spec">
+        <strong>Specifikation</strong>
+        Modell: Mustang Jewel 6 (drop-in)<br>
+        Brännare: 6 st<br>
+        Pris: 11 000 kr<br>
+        Placering: södra delen av kök (mot trädgård)
+      </div>
+    </div>
+
+    <div class="comp-card">
+      <h3><span class="icon">🪨</span> Bänkskiva – gjuten betong</h3>
+      <p>Gjuts in situ på stommen. 50 mm tjocklek med armeringsnät. Slipas och impregneras. Se fliken Betongbänkskiva för komplett guide.</p>
+      <div class="spec">
+        <strong>Specifikation</strong>
+        Tjocklek: 50 mm, CC20 betong<br>
+        Armering: nät 150×150 mm<br>
+        Dilatationsfog: 5 mm PVC-list mitt på<br>
+        Yta: Lithofin impregnering<br>
+        Materialkostnad: ~2 000 kr
+      </div>
+    </div>
+
+    <div class="comp-card">
+      <h3><span class="icon">🚿</span> Vatten – enkel lösning</h3>
+      <p>Vattenslang med snabbkoppling direkt till diskho. Noll rördragning, noll frysrisk på vintern — koppla bara loss slangen i oktober.</p>
+      <div class="spec">
+        <strong>Specifikation</strong>
+        Vatten: trädgårdsslang, snabbkoppling<br>
+        Avlopp: hink under ho alt. kort slang till grus/drän<br>
+        Ho: enkel rostfri, ca 40×35 cm (~500 kr)<br>
+        Fördel: extremt enkelt och billigt
+      </div>
+    </div>
+
+    <div class="comp-card">
+      <h3><span class="icon">🏗️</span> Pergola – nätt konstruktion</h3>
+      <p>Smala ribbor tätt sitter ger ett modernt, lätt uttryck – mer likt bild 2 i inspirationen. Stombalkar bär, tunna ribbor dekorerar och skapar det karaktäristiska ljusspelet. Svartmålat furu/lärk.</p>
+      <div class="spec">
+        <strong>Specifikation</strong>
+        Stolpar: 4 st, 90×90 mm, höjd 230 cm<br>
+        Stombalk (N–S): 45×145 mm på varje sida<br>
+        Ribbor (Ö–V): 28×70 mm c/c 25 cm (~14 st)<br>
+        Infästning: stolpsko i bjälklag<br>
+        Färg: svart täcklasyr, 2 strykningar
+      </div>
+    </div>
+
+    <div class="comp-card">
+      <h3><span class="icon">🌧️</span> Regnlösning – alternativ</h3>
+      <p>Tre realistiska lösningar för regnsskydd som fungerar med den nätta pergoladesignen. Kan adderas nu eller i efterhand.</p>
+      <div class="spec">
+        <strong>Alt 1 – Segelduk (rekommenderas)</strong>
+        Vattentät triangelsegel eller rektangulär markis fäst i pergolans ribbor. Dras för vid regn, tas ned på hösten. Fäst i 3–4 punkter, lägg en liten lutning (5°) för avrinning. Kostnad: 2 000–5 000 kr.<br><br>
+        <strong>Alt 2 – Vinklat polykarbonattak</strong>
+        Transparenta eller tonade PC-plattor (10 mm tvåväggs) läggs på ribborna med 5–10° lutning mot söder. Fullt regnsskydd, låter in 80% av ljuset. Kräver lite extra stöd i ribborna. Kostnad: 4 000–8 000 kr.<br><br>
+        <strong>Alt 3 – Dragbar markis (premium)</strong>
+        Motoriserad eller manuell markis som rullas ut mellan balkarna. Märken: Markilux, Weinor, Somfy. Kan styras automatiskt vid regn med sensor. Kostnad: 15 000–35 000 kr.
+      </div>
+    </div>
+
+    <div class="comp-card">
+      <h3><span class="icon">🛡️</span> Insynsskydd (väst)</h3>
+      <p>Stående svart panel längs hela västra sidan. Fungerar som bakvägg och stöd för köket. Skärmar av grannen i väster.</p>
+      <div class="spec">
+        <strong>Specifikation</strong>
+        Panel: 28×120 mm stående, svart<br>
+        Höjd: 180–200 cm<br>
+        Stomme: 45×95 mm tryckimpr.<br>
+        OBS: grannehörande om höjd &gt;1,8 m
+      </div>
+    </div>
+
+    <div class="comp-card">
+      <h3><span class="icon">🪑</span> Sittbänk / förvaring (söder)</h3>
+      <p>Platsbyggd längs södra kanten. Man sitter och tittar norrut mot köket och pergolan — havet i ryggen. Lyftlock ger förvaring under.</p>
+      <div class="spec">
+        <strong>Specifikation</strong>
+        Mått: ca 270 cm × 50 cm × 45 cm<br>
+        Lock: hyvlad panel eller kompaktlaminat<br>
+        Stomme: 45×95 mm tryckimpr.<br>
+        Gångjärn: gasdämpare
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- KOSTNAD                                                        -->
+<!-- ============================================================ -->
+<div class="panel" id="panel-cost">
+  <div class="cost-toggle">
+    <div class="cost-btn active" onclick="setCostView('material')">Material</div>
+    <div class="cost-btn" onclick="setCostView('total')">Inkl. arbete</div>
+  </div>
+  <div class="cost-table">
+    <table><thead><tr><th>Post</th><th>Detalj</th><th>Kostnad (kr)</th></tr></thead>
+    <tbody id="cost-body"></tbody></table>
+  </div>
+  <p class="note">* Uppskattning 2025. Snickare 650 kr/h inkl. moms. Betongbänkskiva räknad som DIY.</p>
+</div>
+
+<!-- ============================================================ -->
+<!-- ATT TÄNKA PÅ                                                   -->
+<!-- ============================================================ -->
+<div class="panel" id="panel-notes">
+  <div class="notes-grid">
+
+    <div class="note-card warn">
+      <h3>⚠️ Tillstånd</h3>
+      <ul>
+        <li>Öppen pergola normalt bygglovsbefriad – bekräfta med Österåkers kommun</li>
+        <li>Insynsskydd i väster: grannehörande om höjd &gt;1,8 m mot tomtgräns</li>
+        <li>Samfälligheten kan ha regler – kontrollera</li>
+        <li>Deck-utbyggnad: ≥4,5 m från gräns kräver grannemedgivande</li>
+      </ul>
+    </div>
+
+    <div class="note-card ok">
+      <h3>✅ Konceptets styrkor</h3>
+      <ul>
+        <li>Kocken tittar mot havet – förrådet försvinner ur blickfältet</li>
+        <li>Insynsskydd och kök i ett (kök byggs mot skyddet) – sparar material</li>
+        <li>Sittbänk söder: sittplatsen har också havsutsikt</li>
+        <li>Öppen pergola: ljuset och himlen behålls mot söder/öster</li>
+        <li>Betongbänkskiva: hållbar, vädertålig, unik karaktär</li>
+      </ul>
+    </div>
+
+    <div class="note-card info">
+      <h3>🔧 El &amp; vatten</h3>
+      <ul>
+        <li>Vatten: trädgårdsslang – koppla av på hösten, ingen frysrisk</li>
+        <li>Eluttag IP44 i kökssektionen (belysning, ev. kylskåp)</li>
+        <li>LED-slinga längs pergolabalkarna</li>
+        <li>Gasol: flaskfack i ventilerat utrymme under bänk</li>
+      </ul>
+    </div>
+
+    <div class="note-card info">
+      <h3>🌿 Robot &amp; bevattning</h3>
+      <ul>
+        <li>Sprinklerhuvuden i zonen täpps/flyttas innan bygge</li>
+        <li>Yuka Mini 2 800 – definiera altanens kanter i appen</li>
+        <li>Roboten når ej under sittbänken – ok, markera kanten</li>
+      </ul>
+    </div>
+
+    <div class="note-card warn">
+      <h3>🔩 Byggordning</h3>
+      <ul>
+        <li>1. Markering, ev. el-grävning</li>
+        <li>2. Pergolastolpar förankras</li>
+        <li>3. Takåsar monteras</li>
+        <li>4. Insynsskyddets stomme (väst)</li>
+        <li>5. Kökets stomme byggs mot insynsskyddet</li>
+        <li>6. Panel på kök + insynsskydd</li>
+        <li>7. Form för betongbänkskiva byggs och gjuts</li>
+        <li>8. Härda 7–28 dagar, slipa, impregnera</li>
+        <li>9. Sittbänk/förvaring (söder)</li>
+        <li>10. El, Mustang Jewel 6, diskho+slang</li>
+        <li>11. Ytbehandling/målning</li>
+      </ul>
+    </div>
+
+    <div class="note-card info">
+      <h3>🎨 Ytbehandling – svart</h3>
+      <ul>
+        <li>Svarttjära (Auson): penetrerande, 30+ år livslängd, traditionellt</li>
+        <li>Alt: Jotun Demidekk Ultimate svart täcklasyr, 2 strykningar</li>
+        <li>Betongbänkskiva: Lithofin STAIN-STOP, förnya vart 3–5 år</li>
+        <li>Pergolastolpar: täcklasyr svart</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+let currentColor = 'black';
+const colorMap = {
+  black: {
+    fill: '#1a1a1a', line: '#2d2d2d',
+    badgePanel:   '<span class="badge black">Svart tryckimpr.</span>',
+    badgePergola: '<span class="badge black">Svartmålad furu</span>',
+    badgeScreen:  '<span class="badge black">Svart panel</span>',
+    badgeBench:   '<span class="badge black">Svart panel + lock</span>',
+  },
+  brown: {
+    fill: '#6b4226', line: '#7d5030',
+    badgePanel:   '<span class="badge brown">Brunbetsad lärk</span>',
+    badgePergola: '<span class="badge brown">Brunmålad furu</span>',
+    badgeScreen:  '<span class="badge brown">Brun panel</span>',
+    badgeBench:   '<span class="badge brown">Brun panel + lock</span>',
+  }
+};
+
+function setColor(color) {
+  currentColor = color;
+  const c = colorMap[color];
+  document.getElementById('btn-black').classList.toggle('active', color === 'black');
+  document.getElementById('btn-brown').classList.toggle('active', color === 'brown');
+
+  // Plan fills
+  document.querySelectorAll('.pcol').forEach(el => el.setAttribute('fill', c.fill));
+  ['kitchen-body','bench-body','screen-body'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.setAttribute('fill', c.fill);
+  });
+  document.querySelectorAll('.kpl,.bpl,.scrl').forEach(el => el.setAttribute('stroke', c.line));
+
+  // East elevation
+  ['ekitchen','ebench','escreen','epost-l','epost-r','ebeam',
+   'espar1','espar2','espar3','espar4','espar5','espar6'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.setAttribute('fill', c.fill);
+  });
+  document.querySelectorAll('.ekpl,.ebpl').forEach(el => el.setAttribute('stroke', c.line));
+
+  // South elevation
+  ['skitkitchen2','sbench2','sscreen2','spost-w','spost-e','sbeam2',
+   'ssp1','ssp2','ssp3','ssp4'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.setAttribute('fill', c.fill);
+  });
+
+  document.getElementById('mat-panel').innerHTML   = c.badgePanel;
+  document.getElementById('mat-pergola').innerHTML = c.badgePergola;
+  document.getElementById('mat-screen').innerHTML  = c.badgeScreen;
+  document.getElementById('mat-bench').innerHTML   = c.badgeBench;
+}
+
+let costView = 'material';
+const costs = {
+  material: [
+    { post: 'Pergola (stolpar + åsar)',    detalj: '4 st 90×90, åsar, beslag',              kr: 8000  },
+    { post: 'Utekök stomme + panel',       detalj: 'Tryckimpr. + 28×120 panel, 3 m',        kr: 13000 },
+    { post: 'Bänkskiva – gjuten betong',  detalj: 'Cement, sand, armering, form, impregn.', kr: 2200  },
+    { post: 'Diskho + snabbkoppling',     detalj: 'Enkel rostfri ho + trädgårdsslang',      kr: 800   },
+    { post: 'Mustang Jewel 6',            detalj: 'Drop-in gasolgrill, 6 brännare',          kr: 11000 },
+    { post: 'Insynsskydd (väst)',         detalj: 'Stomme + panel, ca 3,5 m hög',            kr: 5500  },
+    { post: 'Sittbänk/förvaring (söder)',detalj: 'Stomme, panel, lock, gasdämpare',          kr: 6500  },
+    { post: 'El (uttag + belysning)',     detalj: 'IP44 uttag + LED-slinga',                 kr: 4000  },
+    { post: 'Ytbehandling',              detalj: 'Svarttjära/täcklasyr, 2 ggr',              kr: 2500  },
+  ],
+  total: [
+    { post: 'Pergola (stolpar + åsar)',   detalj: 'Material + montering ~8h',                kr: 13200 },
+    { post: 'Utekök stomme + panel',      detalj: 'Material + snickeri ~22h',                kr: 27300 },
+    { post: 'Bänkskiva – gjuten betong', detalj: 'Material + DIY (gjutning/slipning ~10h)', kr: 2200  },
+    { post: 'Diskho + snabbkoppling',    detalj: 'Material + montering ~1h',                 kr: 1450  },
+    { post: 'Mustang Jewel 6',           detalj: 'Material + montering ~2h',                 kr: 12300 },
+    { post: 'Insynsskydd (väst)',        detalj: 'Material + montering ~6h',                 kr: 9400  },
+    { post: 'Sittbänk/förvaring (söder)',detalj: 'Material + snickeri ~9h',                 kr: 12350 },
+    { post: 'El (uttag + belysning)',    detalj: 'Material + el-inst. ~6h',                  kr: 7900  },
+    { post: 'Ytbehandling',             detalj: 'Material + arbete ~4h',                     kr: 5100  },
+  ]
+};
+
+function setCostView(view) {
+  costView = view;
+  document.querySelectorAll('.cost-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  renderCost();
+}
+function renderCost() {
+  const rows = costs[costView];
+  const total = rows.reduce((s,r) => s+r.kr, 0);
+  document.getElementById('cost-body').innerHTML =
+    rows.map(r => `<tr><td>${r.post}</td><td style="color:#777">${r.detalj}</td><td>${r.kr.toLocaleString('sv-SE')} kr</td></tr>`).join('') +
+    `<tr class="total"><td colspan="2">TOTALT (uppskattning)</td><td>${total.toLocaleString('sv-SE')} kr</td></tr>`;
+}
+renderCost();
+</script>
+</body>
+</html>
